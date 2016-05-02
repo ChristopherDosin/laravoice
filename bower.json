@@ -1,0 +1,25 @@
+{
+  "name": "test",
+  "version": "0.0.0",
+  "dependencies": {
+    "jquery": "1.11.1",
+    "bootstrap": "v4.0.0-alpha.2",
+    "vue": "~1.0.21",
+    "vue-resource": "~0.7.0"
+  },
+  "install": {
+    "path": {
+      "js": "resources/assets/js/{name}",
+      "css": "resources/assets/css/{name}",
+      "scss": "resources/assets/sass/{name}",
+      "images": "public/img/{name}",
+      "less": "resources/assets/less/{name}"
+    },
+    "sources": {
+      "bootstrap": [
+        "bower_components/bootstrap/scss/**",
+        "bower_components/bootstrap/dist/js/bootstrap.min.js"
+      ]
+    }
+  }
+}

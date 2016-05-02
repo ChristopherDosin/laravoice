@@ -1,0 +1,47 @@
+.sidebar
+	background: primary-color
+	font-weight: 600
+	h3
+		color: #5b6779;
+		text-transform uppercase
+		font-size 12px
+		margin: 30px 0 15px 30px
+	li 
+		padding-left: 20px
+		transition: background-color .1s ease-in-out 0s;
+		border-left:4px solid transparent
+		&:hover, &.active
+			background: #313d4f;
+			border-left:4px solid blue-color
+			
+		&.active
+			a 
+				color white 
+				i {
+					color: blue-color
+				}
+	a 
+		color: #b7c0cd
+		display: block
+		padding: 10px 0
+		transition: color .1s ease-in-out 0s;
+		position relative
+		margin-bottom 5px
+		
+		i {
+			position: relative;
+		    float: left;
+		    width: 40px;
+		    margin: -10px -10px;
+		    margin-right: 5px;
+		    overflow: hidden;
+		    line-height: 40px;
+		    text-align: center;
+		}
+		
+		&:hover
+			color: white
+			
+			i {
+				color: blue-color
+			}

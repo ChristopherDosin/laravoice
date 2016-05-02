@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/laravoice":{"type":null,"mount_options":[],"guestpath":"/home/vagrant/laravoice","hostpath":"/Users/christopherdosin/Desktop/code/laravoice","disabled":false},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/christopherdosin/Desktop/code/laravoice","disabled":false}}}

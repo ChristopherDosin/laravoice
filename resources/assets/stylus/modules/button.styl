@@ -1,0 +1,45 @@
+.btn {
+    display: inline-block;
+    padding: .375rem 1rem;
+    font-size 14px
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid #ced0da;
+    border-radius: .25rem;
+    
+    background: linear-gradient(to bottom, #ffffff 0%,#f2f4f7 100%); 
+    color:#7383a1;
+    
+    &:hover {
+        background: linear-gradient(to bottom, #f2f4f7 0%,#ffffff 100%); 
+    }
+    
+    &.green {
+		background: #39b54a; 
+		background: linear-gradient(to bottom,  #39b54a 0%,#34aa44 100%);
+		color: white;
+		&:hover {
+			background: #34aa44;
+			background: linear-gradient(to bottom,  #34aa44 0%,#39b54a 100%);
+    	}
+    	&.btn-border {
+    		border-color dark-green
+    	}
+    }
+}
+
+.btn.disabled, .btn:disabled {
+    cursor: not-allowed;
+    opacity: .65;
+}
+button[disabled], html input[disabled] {
+    cursor: default;
+}

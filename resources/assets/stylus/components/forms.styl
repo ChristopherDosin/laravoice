@@ -1,0 +1,35 @@
+form {
+	.form-group {
+		margin-bottom 15px;
+		&.error {
+			input {
+				background-color: rgba(250,120,126,.1)!important;
+    			border-color: rgba(250,120,126,.9)!important;
+			}
+		}
+	}
+	label {
+		font-size: 13px;
+		line-height: 17px;
+		color: #7f8fa4;
+		font-weight: 600;
+		display: inline-block;
+		margin-bottom: 5px;
+	}
+	input {
+		font-size: 13px;
+		border-radius: 4px;
+		padding: 8px 12px;
+    	display: block;
+    	border:solid 1px #dfe3e9;
+    	color:#354052;
+    	width:100%;
+    	background: white;
+    	outline: none
+    	&:focus {
+		    //background: linear-gradient(to bottom, #ffffff 0%,#f2f4f7 100%); 
+		    color:#354052;
+		    border-color:#2096f0;
+    	}
+	}
+}

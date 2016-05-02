@@ -1,0 +1,59 @@
+@require "html5-reset"
+@import "variables"
+
+@import "components/table"
+@import "components/forms"
+
+@import "modules/helpers"
+@import "modules/typo"
+@import "modules/sidebar"
+@import "modules/global"
+@import "modules/box"
+@import "modules/button"
+
+html, body{
+  height:100%;
+}
+
+
+body {
+    margin:0;
+    padding:0;
+    font font-size 'Open Sans', Arial, sans-serif
+    -webkit-font-smoothing: antialiased;
+    font-weight 400
+    background: #eff3f6
+}
+
+.bg-light {
+	color: #354052
+	background: bg-light
+}
+
+a 
+	text-decoration none
+
+.container {
+	height 100%
+}
+.row {
+	lost-flex-container: row;
+}
+
+#app.row 
+	lost-flex-container: row;
+	height 100%
+	> div
+		height: 100%
+		&:first-child
+			width 200px
+		&:last-child
+			width calc(100% - 200px)
+			
+.half-column {
+	lost-column: 1/2;
+}
+			
+.main-content {
+	padding:30px;
+}
