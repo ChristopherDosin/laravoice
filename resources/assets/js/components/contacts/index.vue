@@ -51,7 +51,7 @@
 			<table class="table table-striped">
 			  <thead>
 			    <tr>
-					<th>{{ trans('contacts.typ') }}</th>
+					<th>@{{ trans('contacts.typ') }}</th>
 			      <th>KdNr.</th>
 			      <th>Name</th>
 					<th>Ort</th>
