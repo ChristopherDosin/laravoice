@@ -40316,6 +40316,7 @@ var App = _vue2.default.extend(require('./app.vue'));
 router.start(App, '#app');
 
 },{"./app.vue":74,"./routes":82,"vue":71,"vue-resource":58,"vue-router":69,"vue-validator":70}],74:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert(".main > div > .box {\n  position: fixed;\n  height: calc(100% - 220px);\n  width: calc(100% - 270px);\n  top: 160px;\n  overflow: auto;\n  z-index: 1;\n}\n")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40332,19 +40333,24 @@ exports.default = {
     components: { sidebar: _sidebar2.default }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<section class=\"row\">\n    <sidebar></sidebar>\n    <div>\n    \t<div class=\"mai-content\">\n    \t\t<router-view></router-view>\n    \t</div>\n\t</div>\n</section>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<section class=\"row\">\n    <sidebar></sidebar>\n    <div>\n    \t<div class=\"main\">\n    \t\t<router-view></router-view>\n    \t</div>\n\t</div>\n</section>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   var id = "/Users/christopherdosin/Desktop/code/laravoice/resources/assets/js/app.vue"
+  module.hot.dispose(function () {
+    require("vueify-insert-css").cache[".main > div > .box {\n  position: fixed;\n  height: calc(100% - 220px);\n  width: calc(100% - 270px);\n  top: 160px;\n  overflow: auto;\n  z-index: 1;\n}\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
   if (!module.hot.data) {
     hotAPI.createRecord(id, module.exports)
   } else {
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./components/includes/sidebar.vue":80,"vue":71,"vue-hot-reload-api":44}],75:[function(require,module,exports){
+},{"./components/includes/sidebar.vue":80,"vue":71,"vue-hot-reload-api":44,"vueify-insert-css":72}],75:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert("table {\n  font-size: 13px;\n  cursor: pointer !important;\n}\ntable tr:hover {\n  background: rgba(195,195,195,0.18);\n}\ntable thead tr:hover {\n  background: none;\n}\ntable thead th {\n  padding-left: 0;\n}\n.contact-column th,\n.contact-column td {\n  padding: 18px 0 5px 0;\n}\n.contact-type {\n  overflow: hidden;\n  padding-bottom: 15px;\n  padding-bottom: 10px;\n}\n.contact-type .fa {\n  font-size: 20px;\n}\n.contact-type span {\n  color: #fff;\n  position: relative;\n  top: 5px;\n  left: -7px;\n  padding-left: 3px;\n  padding-right: 3px;\n  font-size: 10px;\n}\n")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40384,6 +40390,8 @@ exports.default = {
 		this.getContacts();
 	},
 
+	computed: {},
+
 	methods: {
 		analytics: function analytics() {
 			this.tabAnalytics = true;
@@ -40405,19 +40413,23 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n    <div class=\"vue-loading\" v-if=\"$loadingRouteData\">\n        <div class=\"loader\">Loading ...</div>\n    </div>\n\n    <div v-if=\"!$loadingRouteData\">\n\n\t\t<div class=\"dashhead bg-light b-b\">\n\t\t\t<section class=\"row b-b b-b-light pb25 mb20\">\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<h1>Kontakte</h1>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<a class=\"btn btn-border green right\" @click=\"showModal = true\">Kontakt erstellen</a>\n\n\t\t\t\t\t  <!-- use the modal component, pass in the prop -->\n\t\t\t\t\t  <modal :show.sync=\"showModal\" :md=\"true\">\n\t\t\t\t\t    <!--\n\t\t\t\t\t      you can use custom content here to overwrite\n\t\t\t\t\t      default content\n\t\t\t\t\t    -->\n\t\t\t\t\t    <h3 slot=\"header\">Kontakt erstellen</h3>\n\t\t\t\t\t  </modal>\n\n\t\t\t\t</div>\n\t\t\t</section>\n\t\t\t<nav class=\"\">\n\t\t\t\t<ul>\n\t\t\t\t\t<li :class=\"{'active': tabAnalytics}\">\n\t\t\t\t\t\t<a @click=\"analytics\">Alle</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">Sales</a>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</nav>\n\t\t</div>\n\n\t\t<div class=\"box m35 no-padding\">\n\t\t\t<table class=\"table table-striped\">\n\t\t\t  <thead>\n\t\t\t    <tr>\n\t\t\t      <th>KdNr.</th>\n\t\t\t      <th>Vorname</th>\n\t\t\t    </tr>\n\t\t\t  </thead>\n\t\t\t  <tbody>\n\t\t\t    <tr v-for=\"contact in contacts\">\n\t\t\t      <th scope=\"row\">{{contact.id}}</th>\n\t\t\t      <td>{{contact.first_name}}</td>\n\t\t\t    </tr>\n\t\t\t  </tbody>\n\t\t\t</table>\n\t\t</div>\n\n\t</div>\n\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n    <div class=\"vue-loading\" v-if=\"$loadingRouteData\">\n        <div class=\"loader\">Loading ...</div>\n    </div>\n\n    <div v-if=\"!$loadingRouteData\">\n\n\t\t<div class=\"dashhead bg-light b-b\">\n\t\t\t<section class=\"row b-b b-b-light pb25 mb20\">\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<h1>Kontakte</h1>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<a class=\"btn btn-border green right\" @click=\"showModal = true\">Kontakt erstellen</a>\n\n\t\t\t\t\t  <!-- use the modal component, pass in the prop -->\n\t\t\t\t\t  <modal :show.sync=\"showModal\" :md=\"true\">\n\t\t\t\t\t    <!--\n\t\t\t\t\t      you can use custom content here to overwrite\n\t\t\t\t\t      default content\n\t\t\t\t\t    -->\n\t\t\t\t\t    <h3 slot=\"header\">Kontakt erstellen</h3>\n\t\t\t\t\t  </modal>\n\n\t\t\t\t</div>\n\t\t\t</section>\n\n\t\t\t<nav class=\"\">\n\t\t\t\t<ul>\n\t\t\t\t\t<li :class=\"{'active': tabAnalytics}\">\n\t\t\t\t\t\t<a @click=\"analytics\">Alle</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">Lieferanten</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">Kunden</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">Partner</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">Interessenten</a>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</nav>\n\t\t</div>\n\n\t\t<div class=\"box m35 no-padding\">\n\t\t\t<table class=\"table table-striped\">\n\t\t\t  <thead>\n\t\t\t    <tr>\n\t\t\t\t\t<th>{{ trans('contacts.typ') }}</th>\n\t\t\t      <th>KdNr.</th>\n\t\t\t      <th>Name</th>\n\t\t\t\t\t<th>Ort</th>\n\t\t\t    </tr>\n\t\t\t  </thead>\n\t\t\t  <tbody>\n\t\t\t    <tr v-for=\"contact in contacts\" class=\"contact-column\">\n\t\t\t\t\t<th>\n\t\t\t\t\t\t<div class=\"contact-type\">\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 1\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-user\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#3966b2\">K</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 2\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#d6cb16\">L</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 3\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#d6cb16\">L</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 4\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#8339b2\">P</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</th>\n\t\t\t      <th scope=\"row\">{{contact.id}}</th>\n\t\t\t      <td>{{contact.billingaddress.company}}</td>\n\t\t\t\t\t<td>{{contact.billingaddress.postalcode}} {{contact.billingaddress.city}}</td>\n\t\t\t    </tr>\n\t\t\t  </tbody>\n\t\t\t</table>\n\t\t</div>\n\n\t</div>\n\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   var id = "/Users/christopherdosin/Desktop/code/laravoice/resources/assets/js/components/contacts/index.vue"
+  module.hot.dispose(function () {
+    require("vueify-insert-css").cache["table {\n  font-size: 13px;\n  cursor: pointer !important;\n}\ntable tr:hover {\n  background: rgba(195,195,195,0.18);\n}\ntable thead tr:hover {\n  background: none;\n}\ntable thead th {\n  padding-left: 0;\n}\n.contact-column th,\n.contact-column td {\n  padding: 18px 0 5px 0;\n}\n.contact-type {\n  overflow: hidden;\n  padding-bottom: 15px;\n  padding-bottom: 10px;\n}\n.contact-type .fa {\n  font-size: 20px;\n}\n.contact-type span {\n  color: #fff;\n  position: relative;\n  top: 5px;\n  left: -7px;\n  padding-left: 3px;\n  padding-right: 3px;\n  font-size: 10px;\n}\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
   if (!module.hot.data) {
     hotAPI.createRecord(id, module.exports)
   } else {
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../includes/modal.vue":79,"vue":71,"vue-hot-reload-api":44}],76:[function(require,module,exports){
+},{"../includes/modal.vue":79,"vue":71,"vue-hot-reload-api":44,"vueify-insert-css":72}],76:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40622,9 +40634,16 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"jquery":41,"vue":71,"vue-hot-reload-api":44,"vueify-insert-css":72}],80:[function(require,module,exports){
-"use strict";
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    name: 'Sidebar'
+};
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"sidebar\">\n\t<h3>Reports</h3>\n    <ul class=\"nav nav-sidebar\">\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: 'dashboard', activeClass: 'active' }\"><i class=\"fa fa-deaf\" aria-hidden=\"true\"></i>\n        \tDashboard</a>\n        </li>\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: 'crm', activeClass: 'active' }\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i>\n        \tKontakte</a>\n        </li>\n    </ul>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"sidebar\">\n\t<h3>Reports</h3>\n    <ul class=\"nav nav-sidebar\">\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: 'dashboard'}\"><i class=\"fa fa-deaf\" aria-hidden=\"true\"></i>\n        \tDashboard</a>\n        </li>\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: 'crm'}\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i>\n        \tKontakte</a>\n        </li>\n    </ul>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)

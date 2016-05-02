@@ -25,6 +25,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function usertype()
+    {
+        return $this->belongsTo('App\UserType', 'user_type_id');
+    }
+
+    /**
      * Get the user that owns the billingaddress.
      */
     public function billingaddress()

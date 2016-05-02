@@ -18,8 +18,14 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('password', 60);
+            $table->integer('user_type_id');
             $table->rememberToken();
             $table->timestamps();
+        });
+
+        Schema::create('users_types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('type');
         });
     }
 
@@ -31,5 +37,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::drop('users');
+        Schema::drop('users_types');
     }
 }

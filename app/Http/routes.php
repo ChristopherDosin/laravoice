@@ -5,7 +5,7 @@ Route::post('saveContact', function() {
 });
 
 Route::get('getContacts', function() {
-    return App\User::all();
+    return App\User::with('usertype', 'billingaddress')->get();
 });
 
 Route::group(['middleware' => ['web']], function () {

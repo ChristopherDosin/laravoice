@@ -2,7 +2,7 @@
     <section class="row">
         <sidebar></sidebar>
         <div>
-        	<div class="mai-content">
+        	<div class="main">
         		<router-view></router-view>
         	</div>
     	</div>
@@ -17,5 +17,12 @@
 </script>
 
 <style lang="stylus">
-
+.main > div > .box {
+    position: fixed;
+    height: calc(100% - 220px);
+    width: calc(100% - 270px);
+    top: 160px;
+    overflow: auto;
+    z-index: 1;
+}
 </style>
