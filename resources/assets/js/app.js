@@ -30,6 +30,8 @@ var locales = {
   	sidebar: {
   		dashboard: 'Dashboard',
   		contacts: 'Contacts',
+  		system: 'System',
+  		settings: 'Settings',
   	},
     contact: {
     	contacts: 'Contacts',
@@ -49,8 +51,9 @@ var locales = {
 			fix_errors: 'Fix Errors',
 			organisation: 'Organisation',
 			private_person: 'Private Person',
-			'additional_name': 'Additional Name',
+			additional_name: 'Additional Name',
 			name_of_the_organisation: 'Name of the Organisation',
+			client_number: 'Client Number',
 		}
     }
   }

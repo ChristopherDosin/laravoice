@@ -40871,7 +40871,9 @@ var locales = {
 		en: {
 				sidebar: {
 						dashboard: 'Dashboard',
-						contacts: 'Contacts'
+						contacts: 'Contacts',
+						system: 'System',
+						settings: 'Settings'
 				},
 				contact: {
 						contacts: 'Contacts',
@@ -40891,8 +40893,9 @@ var locales = {
 								fix_errors: 'Fix Errors',
 								organisation: 'Organisation',
 								private_person: 'Private Person',
-								'additional_name': 'Additional Name',
-								name_of_the_organisation: 'Name of the Organisation'
+								additional_name: 'Additional Name',
+								name_of_the_organisation: 'Name of the Organisation',
+								client_number: 'Client Number'
 						}
 				}
 		}
@@ -40913,7 +40916,7 @@ router.beforeEach(function () {
 var App = _vue2.default.extend(require('./app.vue'));
 router.start(App, '#app');
 
-},{"./app.vue":75,"./routes":83,"vue":72,"vue-i18n":45,"vue-resource":59,"vue-router":70,"vue-validator":71}],75:[function(require,module,exports){
+},{"./app.vue":75,"./routes":84,"vue":72,"vue-i18n":45,"vue-resource":59,"vue-router":70,"vue-validator":71}],75:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert(".main > div > .box {\n  position: fixed;\n  height: calc(100% - 220px);\n  width: calc(100% - 270px);\n  top: 160px;\n  overflow: auto;\n  z-index: 1;\n}\n")
 'use strict';
 
@@ -41150,7 +41153,7 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"vue":72,"vue-hot-reload-api":44}],80:[function(require,module,exports){
-var __vueify_style__ = require("vueify-insert-css").insert(".checkmark-wrapper {\n  width: 100px;\n  margin: 25% auto;\n}\n.checkmark {\n  stroke: #34ab44;\n  stroke-dashoffset: 745.74853515625;\n  stroke-dasharray: 745.74853515625;\n  -webkit-animation: dash 2s ease-out forwards infinite;\n          animation: dash 2s ease-out forwards infinite;\n}\n.modal-mask {\n  position: fixed;\n  z-index: 9998;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0,0,0,0.5);\n  display: table;\n  -webkit-transition: opacity 0.3s ease;\n  transition: opacity 0.3s ease;\n}\n.modal-error {\n  background: #ffa2ad;\n  padding: 20px 36px;\n  border-bottom: solid 1px #de6f7b;\n  color: #af2534;\n  font-weight: 600;\n}\n.modal-tabs {\n  background: #222c3c;\n  padding: 0 36px;\n}\n.modal-tabs li {\n  float: left;\n  margin-right: 30px;\n}\n.modal-tabs li a {\n  color: #848c98;\n  font-weight: 600;\n  font-size: 14px;\n  padding: 20px 0 17px 0;\n  display: block;\n  -webkit-transition: color 0.1s ease-in-out 0s;\n  transition: color 0.1s ease-in-out 0s;\n  border-bottom: solid 4px transparent !important;\n}\n.modal-tabs li.active a,\n.modal-tabs li:hover a {\n  border-bottom: solid 4px #2096f0 !important;\n  color: #fff !important;\n}\n.modal-wrapper {\n  display: table-cell;\n  vertical-align: middle;\n}\n.modal-container {\n  width: 300px;\n  margin: 0px auto;\n  border-radius: 4px;\n  box-shadow: 0 2px 8px rgba(0,0,0,0.33);\n  -webkit-transition: all 0.3s ease;\n  transition: all 0.3s ease;\n  font-family: Helvetica, Arial, sans-serif;\n  position: relative;\n}\n.modal-container.modal-md {\n  width: 600px !important;\n}\n.modal-header {\n  background: #2096f0;\n  padding: 22px 36px;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n}\n.modal-header h3 {\n  color: #fff;\n  font-size: 16px;\n  font-weight: 600;\n}\n.modal-body {\n  padding: 22px 36px;\n  background: #fff;\n}\n.modal-default-button {\n  float: right;\n}\n.modal-footer {\n  overflow: hidden;\n  background: #f0f3f8;\n  padding: 13px 36px;\n  border-bottom-left-radius: 4px;\n  border-bottom-right-radius: 4px;\n}\n.modal-enter,\n.modal-leave {\n  opacity: 0;\n}\n.modal-enter .modal-container,\n.modal-leave .modal-container {\n  -webkit-transform: scale(1.1);\n  transform: scale(1.1);\n}\n@-moz-keyframes dash {\n  0% {\n    stroke-dashoffset: 745.74853515625;\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n@-webkit-keyframes dash {\n  0% {\n    stroke-dashoffset: 745.74853515625;\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n@-o-keyframes dash {\n  0% {\n    stroke-dashoffset: 745.74853515625;\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n@keyframes dash {\n  0% {\n    stroke-dashoffset: 745.74853515625;\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n")
+var __vueify_style__ = require("vueify-insert-css").insert(".checkmark-wrapper {\n  width: 100px;\n  margin: 25% auto;\n}\n.checkmark {\n  stroke: #34ab44;\n  stroke-dashoffset: 745.74853515625;\n  stroke-dasharray: 745.74853515625;\n  -webkit-animation: dash 2s ease-out forwards infinite;\n          animation: dash 2s ease-out forwards infinite;\n}\n.modal-mask {\n  position: fixed;\n  z-index: 9998;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0,0,0,0.5);\n  display: table;\n  -webkit-transition: opacity 0.3s ease;\n  transition: opacity 0.3s ease;\n}\n.modal-error {\n  background: #ffa2ad;\n  padding: 20px 36px;\n  border-bottom: solid 1px #de6f7b;\n  color: #af2534;\n  font-weight: 600;\n}\n.modal-tabs {\n  background: #222c3c;\n  padding: 0 36px;\n}\n.modal-tabs li {\n  float: left;\n  margin-right: 30px;\n}\n.modal-tabs li a {\n  color: #848c98;\n  font-weight: 600;\n  font-size: 14px;\n  padding: 20px 0 17px 0;\n  display: block;\n  -webkit-transition: color 0.1s ease-in-out 0s;\n  transition: color 0.1s ease-in-out 0s;\n  border-bottom: solid 4px transparent !important;\n}\n.modal-tabs li.active a,\n.modal-tabs li:hover a {\n  border-bottom: solid 4px #2096f0 !important;\n  color: #fff !important;\n}\n.modal-wrapper {\n  display: table-cell;\n  vertical-align: middle;\n}\n.modal-container {\n  width: 300px;\n  margin: 0px auto;\n  border-radius: 4px;\n  box-shadow: 0 2px 8px rgba(0,0,0,0.33);\n  -webkit-transition: all 0.3s ease;\n  transition: all 0.3s ease;\n  font-family: Helvetica, Arial, sans-serif;\n  position: relative;\n}\n.modal-container.modal-md {\n  width: 600px !important;\n}\n.modal-header {\n  background: #2096f0;\n  padding: 22px 36px;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n}\n.modal-header h3 {\n  color: #fff;\n  font-size: 16px;\n  font-weight: 600;\n}\n.modal-body {\n  padding: 22px 36px;\n  background: #fff;\n}\n.modal-body input {\n  width: 200px;\n  border-radius: 2px;\n}\n.modal-default-button {\n  float: right;\n}\n.modal-footer {\n  overflow: hidden;\n  background: #f0f3f8;\n  padding: 13px 36px;\n  border-bottom-left-radius: 4px;\n  border-bottom-right-radius: 4px;\n}\n.modal-enter,\n.modal-leave {\n  opacity: 0;\n}\n.modal-enter .modal-container,\n.modal-leave .modal-container {\n  -webkit-transform: scale(1.1);\n  transform: scale(1.1);\n}\n@-moz-keyframes dash {\n  0% {\n    stroke-dashoffset: 745.74853515625;\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n@-webkit-keyframes dash {\n  0% {\n    stroke-dashoffset: 745.74853515625;\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n@-o-keyframes dash {\n  0% {\n    stroke-dashoffset: 745.74853515625;\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n@keyframes dash {\n  0% {\n    stroke-dashoffset: 745.74853515625;\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41202,6 +41205,8 @@ exports.default = {
 
       this.spinner = true;
       this.loading = true;
+      this.ccheck = false;
+
       var is = this;
       // Post request
       this.$http.post('/saveContact').then(function (response) {
@@ -41213,6 +41218,7 @@ exports.default = {
           setTimeout(function () {
             is.loading = false;
             is.show = false;
+            is.$resetValidation();
           }, 2000);
         }, 1000);
       }, function (response) {
@@ -41225,14 +41231,14 @@ exports.default = {
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n  <div class=\"modal-mask\" v-show=\"show\" transition=\"modal\">\n    <div class=\"modal-wrapper\">\n      <div class=\"modal-container\" :class=\"{ 'modal-md': md }\">\n\n      \t<div class=\"dimmer\" :class=\"{ 'active': loading }\">\n      \t\t<div class=\"loading\" v-if=\"spinner\"></div>\n          <div class=\"checkmark-wrapper\" v-if=\"check\">\n            <svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 98.5 98.5\" enable-background=\"new 0 0 98.5 98.5\" xml:space=\"preserve\">\n            <path class=\"checkmark\" fill=\"none\" stroke-width=\"8\" stroke-miterlimit=\"10\" d=\"M81.7,17.8C73.5,9.3,62,4,49.2,4\n            C24.3,4,4,24.3,4,49.2s20.3,45.2,45.2,45.2s45.2-20.3,45.2-45.2c0-8.6-2.4-16.6-6.5-23.4l0,0L45.6,68.2L24.7,47.3\"></path>\n            </svg>\n          </div>\n      \t</div>\n\n        <div class=\"modal-header\">\n          <slot name=\"header\">\n            default header\n          </slot>\n        </div>\n\n        <div class=\"modal-tabs\">\n        \t<nav>\n\t        \t<ul>\n    \t\t\t\t<li :class=\"{ 'active': tabOrga }\"><a @click=\"orga\">{{ $t(\"contact.modal.organisation\") }}</a></li>\n    \t\t\t\t<li :class=\"{ 'active': tabPrivate }\"><a @click=\"private\">{{ $t(\"contact.modal.private_person\") }}</a></li>\n\t        \t</ul>\n        \t</nav>\n        </div>\n        \n         <validator name=\"validation1\">\n\n         <!--\n        <div class=\"modal-error\" v-if=\" ! $validation1.valid\">\n        \t<p v-if=\"$validation1.organame.required\"><i class=\"fa fa-exclamation\" aria-hidden=\"true\"></i>\n        \tDer Name der Organisation fehlt.</p>\n        </div>\n        -->\n\n        <form v-on:submit.prevent=\"saveContact\" novalidate=\"\">\n\n        <div class=\"modal-body\" v-show=\"tabOrga\">\n          <slot name=\"body\">\n           \n            \t<div class=\"row\">\n            \t\t<div class=\"half-column\">\n            \t\t\t<div class=\"form-group\" :class=\"{ 'error': $validation1.organame.required}\">\n            \t\t\t\t<label>{{ $t(\"contact.modal.name_of_the_organisation\") }}</label>\n            \t\t\t\t<input type=\"text\" name=\"organame\" id=\"organame\" v-validate:organame=\"['required']\">\n        \t\t\t\t</div>\n            \t\t\t<div class=\"form-group\">\n            \t\t\t\t<label>{{ $t(\"contact.modal.additional_name\") }}</label>\n            \t\t\t\t<input type=\"text\">\n        \t\t\t\t</div>\n            \t\t</div>\n            \t</div>\n          \n          </slot>\n        </div>\n\n        <div class=\"modal-body\" v-show=\"tabPrivate\">\n          <slot name=\"body\">\n            Private\n          </slot>\n        </div>\n\n        <div class=\"modal-footer\">\n          <slot name=\"footer\">\n\t\t\t<a class=\"btn btn-border left\" @click=\"close\">\n\t\t\t\t{{ $t(\"contact.modal.cancel\") }}\n\t\t\t</a>\n            <button class=\"btn btn-border green right\" type=\"submit\" :disabled=\" ! $validation1.valid\">\n            \t<span v-show=\"! $validation1.valid\">{{ $t(\"contact.modal.fix_errors\") }}</span>\n            \t<span v-show=\"$validation1.valid\">{{ $t(\"contact.modal.save\") }}</span>\n            </button>\n          </slot>\n        </div>\n\n        </form>\n        </validator>\n\n      </div>\n    </div>\n  </div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n  <div class=\"modal-mask\" v-show=\"show\" transition=\"modal\">\n    <div class=\"modal-wrapper\">\n      <div class=\"modal-container\" :class=\"{ 'modal-md': md }\">\n\n      \t<div class=\"dimmer\" :class=\"{ 'active': loading }\">\n      \t\t<div class=\"loading\" v-if=\"spinner\"></div>\n          <div class=\"checkmark-wrapper\" v-if=\"check\">\n            <svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 98.5 98.5\" enable-background=\"new 0 0 98.5 98.5\" xml:space=\"preserve\">\n            <path class=\"checkmark\" fill=\"none\" stroke-width=\"8\" stroke-miterlimit=\"10\" d=\"M81.7,17.8C73.5,9.3,62,4,49.2,4\n            C24.3,4,4,24.3,4,49.2s20.3,45.2,45.2,45.2s45.2-20.3,45.2-45.2c0-8.6-2.4-16.6-6.5-23.4l0,0L45.6,68.2L24.7,47.3\"></path>\n            </svg>\n          </div>\n      \t</div>\n\n        <div class=\"modal-header\">\n          <slot name=\"header\">\n            default header\n          </slot>\n        </div>\n\n        <div class=\"modal-tabs\">\n        \t<nav>\n\t        \t<ul>\n    \t\t\t\t<li :class=\"{ 'active': tabOrga }\"><a @click=\"orga\">{{ $t(\"contact.modal.organisation\") }}</a></li>\n    \t\t\t\t<li :class=\"{ 'active': tabPrivate }\"><a @click=\"private\">{{ $t(\"contact.modal.private_person\") }}</a></li>\n\t        \t</ul>\n        \t</nav>\n        </div>\n        \n         <validator name=\"validation1\">\n\n         <!--\n        <div class=\"modal-error\" v-if=\" ! $validation1.valid\">\n        \t<p v-if=\"$validation1.organame.required\"><i class=\"fa fa-exclamation\" aria-hidden=\"true\"></i>\n        \tDer Name der Organisation fehlt.</p>\n        </div>\n        -->\n\n        <form v-on:submit.prevent=\"saveContact\" novalidate=\"\">\n\n        <div class=\"modal-body\" v-show=\"tabOrga\">\n          <slot name=\"body\">\n           \n            \t<div class=\"row\">\n\n              \t\t<div class=\"half-column\">\n              \t\t\t<div class=\"form-group\" :class=\"{ 'error': $validation1.organame.required}\">\n              \t\t\t\t<label>{{ $t(\"contact.modal.name_of_the_organisation\") }}</label>\n              \t\t\t\t<input type=\"text\" name=\"organame\" id=\"organame\" v-validate:organame=\"['required']\">\n          \t\t\t\t  </div>\n              \t\t\t<div class=\"form-group\">\n              \t\t\t\t<label>{{ $t(\"contact.modal.additional_name\") }}</label>\n              \t\t\t\t<input type=\"text\">\n          \t\t\t\t</div>\n            \t\t</div>\n\n                <div class=\"half-column\">\n                    <div class=\"form-group\">\n                      <label>{{ $t(\"contact.modal.client_number\") }}</label>\n                      <input type=\"text\" name=\"client_number\" id=\"client_number\">\n                    </div>\n                    <div class=\"form-group\">\n                      <label>{{ $t(\"contact.type\") }}</label>\n                        <select>\n                          <option>Client</option>\n                        </select>\n                    </div>\n                  </div>\n\n            \t</div>\n          \n          </slot>\n        </div>\n\n        <div class=\"modal-body\" v-show=\"tabPrivate\">\n          <slot name=\"body\">\n            Private\n          </slot>\n        </div>\n\n        <div class=\"modal-footer\">\n          <slot name=\"footer\">\n\t\t\t<a class=\"btn btn-border left\" @click=\"close\">\n\t\t\t\t{{ $t(\"contact.modal.cancel\") }}\n\t\t\t</a>\n            <button class=\"btn btn-border green right\" type=\"submit\" :disabled=\" ! $validation1.valid\">\n            \t<span v-show=\"! $validation1.valid\">{{ $t(\"contact.modal.fix_errors\") }}</span>\n            \t<span v-show=\"$validation1.valid\">{{ $t(\"contact.modal.save\") }}</span>\n            </button>\n          </slot>\n        </div>\n\n        </form>\n        </validator>\n\n      </div>\n    </div>\n  </div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   var id = "/Users/christopherdosin/Desktop/code/laravoice/resources/assets/js/components/includes/modal.vue"
   module.hot.dispose(function () {
-    require("vueify-insert-css").cache[".checkmark-wrapper {\n  width: 100px;\n  margin: 25% auto;\n}\n.checkmark {\n  stroke: #34ab44;\n  stroke-dashoffset: 745.74853515625;\n  stroke-dasharray: 745.74853515625;\n  -webkit-animation: dash 2s ease-out forwards infinite;\n          animation: dash 2s ease-out forwards infinite;\n}\n.modal-mask {\n  position: fixed;\n  z-index: 9998;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0,0,0,0.5);\n  display: table;\n  -webkit-transition: opacity 0.3s ease;\n  transition: opacity 0.3s ease;\n}\n.modal-error {\n  background: #ffa2ad;\n  padding: 20px 36px;\n  border-bottom: solid 1px #de6f7b;\n  color: #af2534;\n  font-weight: 600;\n}\n.modal-tabs {\n  background: #222c3c;\n  padding: 0 36px;\n}\n.modal-tabs li {\n  float: left;\n  margin-right: 30px;\n}\n.modal-tabs li a {\n  color: #848c98;\n  font-weight: 600;\n  font-size: 14px;\n  padding: 20px 0 17px 0;\n  display: block;\n  -webkit-transition: color 0.1s ease-in-out 0s;\n  transition: color 0.1s ease-in-out 0s;\n  border-bottom: solid 4px transparent !important;\n}\n.modal-tabs li.active a,\n.modal-tabs li:hover a {\n  border-bottom: solid 4px #2096f0 !important;\n  color: #fff !important;\n}\n.modal-wrapper {\n  display: table-cell;\n  vertical-align: middle;\n}\n.modal-container {\n  width: 300px;\n  margin: 0px auto;\n  border-radius: 4px;\n  box-shadow: 0 2px 8px rgba(0,0,0,0.33);\n  -webkit-transition: all 0.3s ease;\n  transition: all 0.3s ease;\n  font-family: Helvetica, Arial, sans-serif;\n  position: relative;\n}\n.modal-container.modal-md {\n  width: 600px !important;\n}\n.modal-header {\n  background: #2096f0;\n  padding: 22px 36px;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n}\n.modal-header h3 {\n  color: #fff;\n  font-size: 16px;\n  font-weight: 600;\n}\n.modal-body {\n  padding: 22px 36px;\n  background: #fff;\n}\n.modal-default-button {\n  float: right;\n}\n.modal-footer {\n  overflow: hidden;\n  background: #f0f3f8;\n  padding: 13px 36px;\n  border-bottom-left-radius: 4px;\n  border-bottom-right-radius: 4px;\n}\n.modal-enter,\n.modal-leave {\n  opacity: 0;\n}\n.modal-enter .modal-container,\n.modal-leave .modal-container {\n  -webkit-transform: scale(1.1);\n  transform: scale(1.1);\n}\n@-moz-keyframes dash {\n  0% {\n    stroke-dashoffset: 745.74853515625;\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n@-webkit-keyframes dash {\n  0% {\n    stroke-dashoffset: 745.74853515625;\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n@-o-keyframes dash {\n  0% {\n    stroke-dashoffset: 745.74853515625;\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n@keyframes dash {\n  0% {\n    stroke-dashoffset: 745.74853515625;\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n"] = false
+    require("vueify-insert-css").cache[".checkmark-wrapper {\n  width: 100px;\n  margin: 25% auto;\n}\n.checkmark {\n  stroke: #34ab44;\n  stroke-dashoffset: 745.74853515625;\n  stroke-dasharray: 745.74853515625;\n  -webkit-animation: dash 2s ease-out forwards infinite;\n          animation: dash 2s ease-out forwards infinite;\n}\n.modal-mask {\n  position: fixed;\n  z-index: 9998;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0,0,0,0.5);\n  display: table;\n  -webkit-transition: opacity 0.3s ease;\n  transition: opacity 0.3s ease;\n}\n.modal-error {\n  background: #ffa2ad;\n  padding: 20px 36px;\n  border-bottom: solid 1px #de6f7b;\n  color: #af2534;\n  font-weight: 600;\n}\n.modal-tabs {\n  background: #222c3c;\n  padding: 0 36px;\n}\n.modal-tabs li {\n  float: left;\n  margin-right: 30px;\n}\n.modal-tabs li a {\n  color: #848c98;\n  font-weight: 600;\n  font-size: 14px;\n  padding: 20px 0 17px 0;\n  display: block;\n  -webkit-transition: color 0.1s ease-in-out 0s;\n  transition: color 0.1s ease-in-out 0s;\n  border-bottom: solid 4px transparent !important;\n}\n.modal-tabs li.active a,\n.modal-tabs li:hover a {\n  border-bottom: solid 4px #2096f0 !important;\n  color: #fff !important;\n}\n.modal-wrapper {\n  display: table-cell;\n  vertical-align: middle;\n}\n.modal-container {\n  width: 300px;\n  margin: 0px auto;\n  border-radius: 4px;\n  box-shadow: 0 2px 8px rgba(0,0,0,0.33);\n  -webkit-transition: all 0.3s ease;\n  transition: all 0.3s ease;\n  font-family: Helvetica, Arial, sans-serif;\n  position: relative;\n}\n.modal-container.modal-md {\n  width: 600px !important;\n}\n.modal-header {\n  background: #2096f0;\n  padding: 22px 36px;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n}\n.modal-header h3 {\n  color: #fff;\n  font-size: 16px;\n  font-weight: 600;\n}\n.modal-body {\n  padding: 22px 36px;\n  background: #fff;\n}\n.modal-body input {\n  width: 200px;\n  border-radius: 2px;\n}\n.modal-default-button {\n  float: right;\n}\n.modal-footer {\n  overflow: hidden;\n  background: #f0f3f8;\n  padding: 13px 36px;\n  border-bottom-left-radius: 4px;\n  border-bottom-right-radius: 4px;\n}\n.modal-enter,\n.modal-leave {\n  opacity: 0;\n}\n.modal-enter .modal-container,\n.modal-leave .modal-container {\n  -webkit-transform: scale(1.1);\n  transform: scale(1.1);\n}\n@-moz-keyframes dash {\n  0% {\n    stroke-dashoffset: 745.74853515625;\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n@-webkit-keyframes dash {\n  0% {\n    stroke-dashoffset: 745.74853515625;\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n@-o-keyframes dash {\n  0% {\n    stroke-dashoffset: 745.74853515625;\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n@keyframes dash {\n  0% {\n    stroke-dashoffset: 745.74853515625;\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n"] = false
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
@@ -41242,6 +41248,7 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"jquery":41,"vue":72,"vue-hot-reload-api":44,"vueify-insert-css":73}],81:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert("li.seperator {\n  background: #313d4f;\n  height: 1px;\n  margin: 20px 0;\n}\nli.title {\n  color: #5b6779;\n  text-transform: uppercase;\n  font-size: 12px;\n  margin: 30px 30px 15px 6px;\n  font-weight: 700;\n  list-style: none;\n  border: none;\n}\nli.title i {\n  float: right;\n  font-size: 14px;\n  line-height: 17px;\n}\nli.title:hover {\n  background: none;\n  border: none;\n}\n")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41253,19 +41260,23 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"sidebar\">\n\t<h3>Reports</h3>\n    <ul class=\"nav nav-sidebar\">\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: '/dashboard', activeClass: 'active'}\"><i class=\"fa fa-deaf\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.dashboard\") }}</a>\n        </li>\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: '/crm', activeClass: 'active'}\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.contacts\") }}</a>\n        </li>\n    </ul>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"sidebar\">\n    <ul class=\"nav nav-sidebar\">\n        <li class=\"title\">Menu</li>\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: '/dashboard', activeClass: 'active'}\"><i class=\"fa fa-deaf\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.dashboard\") }}</a>\n        </li>\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: '/crm', activeClass: 'active'}\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.contacts\") }}</a>\n        </li>\n        <li class=\"seperator\"></li>\n        <li class=\"title\">{{ $t(\"sidebar.system\") }} <i class=\"fa fa-cog\" aria-hidden=\"true\"></i></li>\n        <li v-link-active=\"\">\n            <a v-link=\"{ path: '/system/settings', activeClass: 'active'}\"><i class=\"fa fa-tasks\" aria-hidden=\"true\"></i>\n            {{ $t(\"sidebar.settings\") }}</a>\n        </li>\n    </ul>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   var id = "/Users/christopherdosin/Desktop/code/laravoice/resources/assets/js/components/includes/sidebar.vue"
+  module.hot.dispose(function () {
+    require("vueify-insert-css").cache["li.seperator {\n  background: #313d4f;\n  height: 1px;\n  margin: 20px 0;\n}\nli.title {\n  color: #5b6779;\n  text-transform: uppercase;\n  font-size: 12px;\n  margin: 30px 30px 15px 6px;\n  font-weight: 700;\n  list-style: none;\n  border: none;\n}\nli.title i {\n  float: right;\n  font-size: 14px;\n  line-height: 17px;\n}\nli.title:hover {\n  background: none;\n  border: none;\n}\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
   if (!module.hot.data) {
     hotAPI.createRecord(id, module.exports)
   } else {
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":72,"vue-hot-reload-api":44}],82:[function(require,module,exports){
+},{"vue":72,"vue-hot-reload-api":44,"vueify-insert-css":73}],82:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41345,36 +41356,75 @@ exports.default = {
 },{"chart.js":1}],83:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  name: 'Settings',
+
+  route: {
+    data: function data(transition) {
+      setTimeout(function () {
+        transition.next();
+      }, 1000);
+    }
+  }
+
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n    <div class=\"vue-loading\" v-if=\"$loadingRouteData\">\n        <div class=\"loader\">Loading ...</div>\n    </div>\n\n    <div v-if=\"!$loadingRouteData\">\n\n\t\t<div class=\"dashhead bg-light b-b\">\n\t\t\t<section class=\"row pb5 mb20\">\n\t\t\t\t<h1>Settings</h1>\n\t\t\t</section>\n\t\t</div>\n\n    </div>\n\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "/Users/christopherdosin/Desktop/code/laravoice/resources/assets/js/components/system/settings.vue"
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":72,"vue-hot-reload-api":44}],84:[function(require,module,exports){
+'use strict';
+
 module.exports = {
 
-    configRouter: function configRouter(router) {
+  configRouter: function configRouter(router) {
 
-        router.map({
-            '/dashboard': {
-                component: require('./components/dashboard/index.vue'),
-                subRoutes: {
-                    '/': {
-                        component: require('./components/dashboard/index.vue')
-                    },
-                    '/analytics': {
-                        component: require('./components/dashboard/analytics.vue')
-                    }
-                }
-            },
-            '/analytics': {
-                component: require('./components/dashboard/analytics.vue')
-            },
-            '/crm': {
-                component: require('./components/contacts/index.vue')
-            }
-        });
+    router.map({
+      '/dashboard': {
+        component: require('./components/dashboard/index.vue'),
+        subRoutes: {
+          '/': {
+            component: require('./components/dashboard/index.vue')
+          },
+          '/analytics': {
+            component: require('./components/dashboard/analytics.vue')
+          }
+        }
+      },
+      '/analytics': {
+        component: require('./components/dashboard/analytics.vue')
+      },
+      '/crm': {
+        component: require('./components/contacts/index.vue')
+      },
+      '/system': {
+        component: require('./components/system/settings.vue'),
+        subRoutes: {
+          '/settings': {
+            component: require('./components/system/settings.vue')
+          }
+        }
+      }
+    });
 
-        router.alias({
-            '': '/dashboard'
-        });
-    }
+    router.alias({
+      '': '/dashboard'
+    });
+  }
 };
 
-},{"./components/contacts/index.vue":76,"./components/dashboard/analytics.vue":77,"./components/dashboard/index.vue":78}]},{},[74]);
+},{"./components/contacts/index.vue":76,"./components/dashboard/analytics.vue":77,"./components/dashboard/index.vue":78,"./components/system/settings.vue":83}]},{},[74]);
 
 //# sourceMappingURL=app.js.map

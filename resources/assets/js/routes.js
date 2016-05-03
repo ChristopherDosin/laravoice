@@ -19,7 +19,15 @@ module.exports = {
           },
           '/crm': {
             component: require('./components/contacts/index.vue')
-          }
+          },
+          '/system': {
+            component: require('./components/system/settings.vue'),
+              subRoutes: {
+                '/settings': {
+                  component: require('./components/system/settings.vue')
+                }
+              }
+           },
         })
 
         router.alias({

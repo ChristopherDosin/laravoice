@@ -44,16 +44,31 @@
           <slot name="body">
            
             	<div class="row">
-            		<div class="half-column">
-            			<div class="form-group" :class="{ 'error': $validation1.organame.required}">
-            				<label>{{ $t("contact.modal.name_of_the_organisation") }}</label>
-            				<input type="text" name="organame" id="organame" v-validate:organame="['required']">
-        				</div>
-            			<div class="form-group">
-            				<label>{{ $t("contact.modal.additional_name") }}</label>
-            				<input type="text">
-        				</div>
+
+              		<div class="half-column">
+              			<div class="form-group" :class="{ 'error': $validation1.organame.required}">
+              				<label>{{ $t("contact.modal.name_of_the_organisation") }}</label>
+              				<input type="text" name="organame" id="organame" v-validate:organame="['required']">
+          				  </div>
+              			<div class="form-group">
+              				<label>{{ $t("contact.modal.additional_name") }}</label>
+              				<input type="text">
+          				</div>
             		</div>
+
+                <div class="half-column">
+                    <div class="form-group">
+                      <label>{{ $t("contact.modal.client_number") }}</label>
+                      <input type="text" name="client_number" id="client_number">
+                    </div>
+                    <div class="form-group">
+                      <label>{{ $t("contact.type") }}</label>
+                        <select>
+                          <option>Client</option>
+                        </select>
+                    </div>
+                  </div>
+
             	</div>
           
           </slot>
@@ -129,6 +144,8 @@ export default {
 
           this.spinner = true
           this.loading = true
+          this.ccheck = false
+
           var is = this
           // Post request
           this.$http.post('/saveContact').then(function (response) {
@@ -140,6 +157,7 @@ export default {
             setTimeout(function(){
               is.loading = false
               is.show = false
+              is.$resetValidation()
             }, 2000);
 
           }, 1000);
@@ -257,6 +275,10 @@ export default {
 .modal-body {
   padding:22px 36px;
   background:white;
+  input {
+    width 200px
+    border-radius 2px
+  }
 }
 
 .modal-default-button {
