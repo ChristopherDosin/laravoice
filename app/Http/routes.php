@@ -18,4 +18,16 @@ Route::group(['middleware' => ['web']], function () {
         return view('layouts.app');
     });
 
+    Route::group(['middleware' => ['web'], 'as' => 'api.', 'prefix' => 'api', 'namespace' => 'Api'], function () {
+
+        Route::get('getContacts', [
+            'as' => 'getContacts', 'uses' => 'ContactController@getContacts'
+        ]);
+
+        Route::post('saveContact', [
+            'as' => 'saveContact', 'uses' => 'ContactController@saveContact'
+        ]);
+
+    });
+
 });

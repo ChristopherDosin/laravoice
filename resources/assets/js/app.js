@@ -8,6 +8,8 @@ Vue.use(require('vue-router'));
 Vue.use(VueValidator);
 Vue.use(VueI18n);
 
+Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#_token').getAttribute('value');
+
 Vue.config.debug = true;
 Vue.config.devtools = true;
 Vue.config.lang = 'en';

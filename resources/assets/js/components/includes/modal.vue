@@ -4,7 +4,14 @@
       <div class="modal-container" :class="{ 'modal-md': md }">
 
       	<div class="dimmer" :class="{ 'active': loading }">
-      		<div class="loading"></div>
+      		<div class="loading" v-if="spinner"></div>
+          <div class="checkmark-wrapper" v-if="check">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 98.5 98.5" enable-background="new 0 0 98.5 98.5" xml:space="preserve">
+            <path class="checkmark" fill="none" stroke-width="8" stroke-miterlimit="10" d="M81.7,17.8C73.5,9.3,62,4,49.2,4
+            C24.3,4,4,24.3,4,49.2s20.3,45.2,45.2,45.2s45.2-20.3,45.2-45.2c0-8.6-2.4-16.6-6.5-23.4l0,0L45.6,68.2L24.7,47.3"/>
+            </svg>
+          </div>
       	</div>
 
         <div class="modal-header">
@@ -101,13 +108,15 @@ export default {
 			tabOrga: true,
 			tabPrivate: false,
 			loading: false,
+      spinner: false,
+      check: false,
 		}
 	},
 
 	methods: {
-		close() {
-			this.show = false
-		},
+    		close() {
+    			this.show = false
+    		},
         orga() {
             this.tabOrga = true
             this.tabPrivate = false
@@ -118,29 +127,58 @@ export default {
         },
         saveContact(){
 
-        	  this.loading = true
-        	  var is = this
-		      // Post request
-		      this.$http.post('/saveContact').then(function (response) {
+          this.spinner = true
+          this.loading = true
+          var is = this
+          // Post request
+          this.$http.post('/saveContact').then(function (response) {
 
-		          setTimeout(function(){
-					  is.loading = false
-					  is.show = false
-				   }, 1000);
+          setTimeout(function(){
+            is.spinner = false
+            is.check = true
 
-		      }, function (response) {
+            setTimeout(function(){
+              is.loading = false
+              is.show = false
+            }, 2000);
 
-		          setTimeout(function(){
-					  is.loading = false
-				   }, 1000);
+          }, 1000);
 
-		      });
+          }, function (response) {
+
+            setTimeout(function(){
+              is.loading = false
+            }, 1000);
+
+          });
+
         }
 	}
 }
 </script>
 <style lang="stylus">
 @import "../../../stylus/variables";
+
+.checkmark-wrapper {
+  width: 100px;
+  margin: 25% auto;
+}
+
+.checkmark {
+  stroke: green;
+  stroke-dashoffset: 745.74853515625;
+  stroke-dasharray: 745.74853515625;
+  animation: dash 2s ease-out forwards infinite;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 745.74853515625;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
 
 .modal-mask {
   position: fixed;

@@ -180,7 +180,7 @@ export default {
         },
         getContacts(){
 			// GET request
-			this.$http({url: '/getContacts', method: 'GET'}).then(function (response) {
+			this.$http({url: '/api/getContacts', method: 'GET'}).then(function (response) {
 			  this.$set('contacts', response.data)
 			}, function (response) {
 			   console.log(response.data)
