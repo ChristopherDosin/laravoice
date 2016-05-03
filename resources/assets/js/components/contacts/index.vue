@@ -155,7 +155,7 @@ export default {
 			tabAnalytics: true,
 			tabSales: false,
 			contacts: this.getContacts,
-			showModal: false
+			showModal: false,
 		}
 	},
 
@@ -164,7 +164,9 @@ export default {
 	},
 
 	computed: {
+		usertype: function() {
 
+		}
 	},
 
 	methods: {
