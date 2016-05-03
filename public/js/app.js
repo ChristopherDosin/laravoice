@@ -41243,7 +41243,7 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"sidebar\">\n\t<h3>Reports</h3>\n    <ul class=\"nav nav-sidebar\">\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: 'dashboard', activeClass: 'active'}\"><i class=\"fa fa-deaf\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.dashboard\") }}</a>\n        </li>\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: 'crm', activeClass: 'active'}\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.contacts\") }}</a>\n        </li>\n    </ul>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"sidebar\">\n\t<h3>Reports</h3>\n    <ul class=\"nav nav-sidebar\">\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: '/dashboard', activeClass: 'active'}\"><i class=\"fa fa-deaf\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.dashboard\") }}</a>\n        </li>\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: '/crm', activeClass: 'active'}\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.contacts\") }}</a>\n        </li>\n    </ul>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
