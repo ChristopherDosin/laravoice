@@ -4,11 +4,11 @@
         <ul class="nav nav-sidebar">
             <li v-link-active>
             	<a v-link="{ path: 'dashboard'}"><i class="fa fa-deaf" aria-hidden="true"></i>
-            	Dashboard</a>
+            	{{ $t("sidebar.dashboard") }}</a>
             </li>
             <li v-link-active>
             	<a v-link="{ path: 'crm'}"><i class="fa fa-users" aria-hidden="true"></i>
-            	Kontakte</a>
+            	{{ $t("sidebar.contacts") }}</a>
             </li>
         </ul>
     </div>
@@ -16,7 +16,9 @@
 <script>
 
     export default {
-        name: 'Sidebar'
+
+        name: 'Sidebar',
+
     }
 
 </script>

@@ -16,8 +16,8 @@
         <div class="modal-tabs">
         	<nav>
 	        	<ul>
-    				<li :class="{ 'active': tabOrga }"><a @click="orga">Organisation</a></li>
-    				<li :class="{ 'active': tabPrivate }"><a @click="private">Privatperson</a></li>
+    				<li :class="{ 'active': tabOrga }"><a @click="orga">{{ $t("contact.modal.organisation") }}</a></li>
+    				<li :class="{ 'active': tabPrivate }"><a @click="private">{{ $t("contact.modal.private_person") }}</a></li>
 	        	</ul>
         	</nav>
         </div>
@@ -39,11 +39,11 @@
             	<div class="row">
             		<div class="half-column">
             			<div class="form-group" :class="{ 'error': $validation1.organame.required}">
-            				<label>Name der Organisation</label>
+            				<label>{{ $t("contact.modal.name_of_the_organisation") }}</label>
             				<input type="text" name="organame" id="organame" v-validate:organame="['required']">
         				</div>
             			<div class="form-group">
-            				<label>Namenszusatz</label>
+            				<label>{{ $t("contact.modal.additional_name") }}</label>
             				<input type="text">
         				</div>
             		</div>
@@ -62,14 +62,14 @@
           <slot name="footer">
 			<a class="btn btn-border left"
 				@click="close">
-				Abbrechen
+				{{ $t("contact.modal.cancel") }}
 			</a>
             <button class="btn btn-border green right"
               type="submit"
               :disabled=" ! $validation1.valid"
               >
-            	<span v-show="! $validation1.valid">Fehler beheben</span>
-            	<span v-show="$validation1.valid">Speichern</span>
+            	<span v-show="! $validation1.valid">{{ $t("contact.modal.fix_errors") }}</span>
+            	<span v-show="$validation1.valid">{{ $t("contact.modal.save") }}</span>
             </button>
           </slot>
         </div>

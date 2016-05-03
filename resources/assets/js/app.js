@@ -1,13 +1,16 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueValidator from 'vue-validator';
+var VueI18n = require('vue-i18n');
 
 Vue.use(require('vue-resource'));
 Vue.use(require('vue-router'));
-Vue.use(VueValidator)
+Vue.use(VueValidator);
+Vue.use(VueI18n);
 
 Vue.config.debug = true;
 Vue.config.devtools = true;
+Vue.config.lang = 'en';
 
 
 // Import the actual routes, aliases, ...
@@ -17,7 +20,45 @@ import { configRouter } from './routes'
 const router = new VueRouter()
 
 // Inject the routes into the VueRouter object
-configRouter(router)
+configRouter(router);
+
+// Import language file
+var locales = {
+  en: {
+  	sidebar: {
+  		dashboard: 'Dashboard',
+  		contacts: 'Contacts',
+  	},
+    contact: {
+    	contacts: 'Contacts',
+		create_contact: 'Create Contact',
+		all: 'All',
+		suppliers: 'Suppliers',
+		clients: 'Clients',
+		partner: 'Partners',
+		interested_persons: 'Interested Persons',
+		type: 'Type',
+		name: 'Name',
+		city: 'City',
+		client_number: 'Client Nr.',
+		modal: {
+			cancel: 'Cancel',
+			save: 'Save',
+			fix_errors: 'Fix Errors',
+			organisation: 'Organisation',
+			private_person: 'Private Person',
+			'additional_name': 'Additional Name',
+			name_of_the_organisation: 'Name of the Organisation',
+		}
+    }
+  }
+}
+
+// set locales
+// RECOMMEND: 3.0 or later
+Object.keys(locales).forEach(function (lang) {
+  Vue.locale(lang, locales[lang])
+})
 
 router.beforeEach(function () {
     window.scrollTo(0, 0)

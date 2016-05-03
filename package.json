@@ -9,6 +9,7 @@
     "laravel-elixir-stylus": "^1.0.1",
     "laravel-elixir-vueify": "^1.0.3",
     "vue": "^1.0.21",
+    "vue-i18n": "^3.0.0",
     "vue-resource": "^0.7.0",
     "vue-router": "^0.7.13",
     "vue-strap": "^1.0.7",

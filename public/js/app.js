@@ -23488,6 +23488,560 @@ function format (id) {
 }
 
 },{}],45:[function(require,module,exports){
+(function (process){
+/*!
+ * vue-i18n v3.0.0
+ * (c) 2016 kazuya kawaguchi
+ * Released under the MIT License.
+ */
+'use strict';
+
+var babelHelpers = {};
+babelHelpers.typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+};
+babelHelpers;
+
+/**
+ * Utilties
+ */
+
+// export default for holding the Vue reference
+var exports$1 = {};
+/**
+ * warn
+ *
+ * @param {String} msg
+ * @param {Error} [err]
+ *
+ */
+
+function warn(msg, err) {
+  if (window.console) {
+    console.warn('[vue-i18n] ' + msg);
+    if (err) {
+      console.warn(err.stack);
+    }
+  }
+}
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+/**
+ * Check whether the object has the property.
+ *
+ * @param {Object} obj
+ * @param {String} key
+ * @return {Boolean}
+ */
+
+function hasOwn(obj, key) {
+  return hasOwnProperty.call(obj, key);
+}
+
+/**
+ * empty
+ *
+ * @param {Array|Object} target
+ * @return {Boolean}
+ */
+
+function empty(target) {
+  if (target === null || target === undefined) {
+    return true;
+  }
+
+  if (Array.isArray(target)) {
+    if (target.length > 0) {
+      return false;
+    }
+    if (target.length === 0) {
+      return true;
+    }
+  } else if (exports$1.Vue.util.isPlainObject(target)) {
+    for (var key in target) {
+      if (hasOwn(target, key)) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+/**
+ * each
+ *
+ * @param {Array|Object} target
+ * @param {Function} iterator
+ * @param {Object} [context]
+ */
+
+function each(target, iterator, context) {
+  if (Array.isArray(target)) {
+    for (var i = 0; i < target.length; i++) {
+      iterator.call(context || target[i], target[i], i);
+    }
+  } else if (exports$1.Vue.util.isPlainObject(target)) {
+    for (var key in target) {
+      if (hasOwn(target, key)) {
+        iterator.call(context || target[key], target[key], key);
+      }
+    }
+  }
+}
+
+var Watcher = void 0;
+/**
+ * getWatcher
+ *
+ * @param {Vue} vm
+ * @return {Watcher}
+ */
+
+function getWatcher(vm) {
+  if (!Watcher) {
+    var unwatch = vm.$watch('__watcher__', function (a) {});
+    Watcher = vm._watchers[0].constructor;
+    unwatch();
+  }
+  return Watcher;
+}
+
+var Dep = void 0;
+/**
+ * getDep
+ *
+ * @param {Vue} vm
+ * @return {Dep}
+ */
+
+function getDep(vm) {
+  if (!Dep) {
+    Dep = vm._data.__ob__.dep.constructor;
+  }
+  return Dep;
+}
+
+/**
+ * Forgiving check for a promise
+ *
+ * @param {Object} p
+ * @return {Boolean}
+ */
+
+function isPromise(p) {
+  return p && typeof p.then === 'function';
+}
+
+/**
+ * Version compare
+ * - Inspired:
+ *   https://github.com/omichelsen/compare-versions
+ */
+
+var PATCH_PATTERN = /-([\w-.]+)/;
+
+function split(v) {
+  var temp = v.split('.');
+  var arr = temp.splice(0, 2);
+  arr.push(temp.join('.'));
+  return arr;
+}
+
+/**
+ * compare
+ *
+ * @param {String} v1
+ * @param {String} v2
+ * @return {Number}
+ */
+
+function compare (v1, v2) {
+  var s1 = split(v1);
+  var s2 = split(v2);
+
+  for (var i = 0; i < 3; i++) {
+    var n1 = parseInt(s1[i] || 0, 10);
+    var n2 = parseInt(s2[i] || 0, 10);
+
+    if (n1 > n2) {
+      return 1;
+    }
+    if (n2 > n1) {
+      return -1;
+    }
+  }
+
+  if ((s1[2] + s2[2] + '').indexOf('-') > -1) {
+    var p1 = (PATCH_PATTERN.exec(s1[2]) || [''])[0];
+    var p2 = (PATCH_PATTERN.exec(s2[2]) || [''])[0];
+
+    if (p1 === '') {
+      return 1;
+    }
+    if (p2 === '') {
+      return -1;
+    }
+    if (p1 > p2) {
+      return 1;
+    }
+    if (p2 > p1) {
+      return -1;
+    }
+  }
+
+  return 0;
+}
+
+var locales = Object.create(null); // locales store
+
+function Asset (Vue) {
+  /**
+   * Register or retrieve a global locale definition.
+   *
+   * @param {String} id
+   * @param {Object | Function | Promise} definition
+   * @param {Function} cb
+   */
+
+  Vue.locale = function (id, definition, cb) {
+    if (definition === undefined) {
+      // gettter
+      return locales[id];
+    } else {
+      // setter
+      if (definition === null) {
+        locales[id] = undefined;
+        delete locales[id];
+      } else {
+        setLocale(id, definition, function (locale) {
+          if (locale) {
+            locales[id] = locale;
+            cb && cb();
+          } else {
+            warn('failed set `' + id + '` locale');
+          }
+        });
+      }
+    }
+  };
+}
+
+function setLocale(id, definition, cb) {
+  var _this = this;
+
+  if ((typeof definition === 'undefined' ? 'undefined' : babelHelpers.typeof(definition)) === 'object') {
+    // sync
+    cb(definition);
+  } else {
+    (function () {
+      var future = definition.call(_this);
+      if (typeof future === 'function') {
+        if (future.resolved) {
+          // cached
+          cb(future.resolved);
+        } else if (future.requested) {
+          // pool callbacks
+          future.pendingCallbacks.push(cb);
+        } else {
+          (function () {
+            future.requested = true;
+            var cbs = future.pendingCallbacks = [cb];
+            future(function (locale) {
+              // resolve
+              future.resolved = locale;
+              for (var i = 0, l = cbs.length; i < l; i++) {
+                cbs[i](locale);
+              }
+            }, function () {
+              // reject
+              cb();
+            });
+          })();
+        }
+      } else if (isPromise(future)) {
+        // promise
+        future.then(function (locale) {
+          // resolve
+          cb(locale);
+        }, function () {
+          // reject
+          cb();
+        }).catch(function (err) {
+          console.error(err);
+          cb();
+        });
+      }
+    })();
+  }
+}
+
+function Override (Vue, langVM) {
+  // override _init
+  var init = Vue.prototype._init;
+  Vue.prototype._init = function (options) {
+    var _this = this;
+
+    options = options || {};
+    var root = options._parent || options.parent || this;
+    var lang = root.$lang;
+
+    if (lang) {
+      this.$lang = lang;
+    } else {
+      this.$lang = langVM;
+    }
+
+    this._langUnwatch = this.$lang.$watch('lang', function (a, b) {
+      update(_this);
+    });
+
+    init.call(this, options);
+  };
+
+  // override _destroy
+  var destroy = Vue.prototype._destroy;
+  Vue.prototype._destroy = function () {
+    if (this._langUnwatch) {
+      this._langUnwatch();
+      this._langUnwatch = null;
+    }
+
+    this.$lang = null;
+    destroy.apply(this, arguments);
+  };
+}
+
+function update(vm) {
+  var i = vm._watchers.length;
+  while (i--) {
+    vm._watchers[i].update(true); // shallow updates
+  }
+}
+
+function Config (Vue, langVM) {
+  var Watcher = getWatcher(langVM);
+  var Dep = getDep(langVM);
+
+  function makeComputedGetter(getter, owner) {
+    var watcher = new Watcher(owner, getter, null, {
+      lazy: true
+    });
+
+    return function computedGetter() {
+      if (watcher.dirty) {
+        watcher.evaluate();
+      }
+      if (Dep.target) {
+        watcher.depend();
+      }
+      return watcher.value;
+    };
+  }
+
+  // define Vue.config.lang configration
+  Object.defineProperty(Vue.config, 'lang', {
+    enumerable: true,
+    configurable: true,
+    get: makeComputedGetter(function () {
+      return langVM.lang;
+    }, langVM),
+    set: Vue.util.bind(function (val) {
+      langVM.lang = val;
+    }, langVM)
+  });
+}
+
+/**
+ *  String format template
+ *  - Inspired:  
+ *    https://github.com/Matt-Esch/string-template/index.js
+ */
+
+var RE_NARGS = /(%|)\{([0-9a-zA-Z]+)\}/g;
+
+/**
+ * template
+ *  
+ * @param {String} string
+ * @param {Array} ...args
+ * @return {String}
+ */
+
+function format (string) {
+  for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    args[_key - 1] = arguments[_key];
+  }
+
+  if (args.length === 1 && babelHelpers.typeof(args[0]) === 'object') {
+    args = args[0];
+  }
+
+  if (!args || !args.hasOwnProperty) {
+    args = {};
+  }
+
+  return string.replace(RE_NARGS, function (match, prefix, i, index) {
+    var result = void 0;
+
+    if (string[index - 1] === '{' && string[index + match.length] === '}') {
+      return i;
+    } else {
+      result = args.hasOwnProperty(i) ? args[i] : null;
+      if (result === null || result === undefined) {
+        return '';
+      }
+
+      return result;
+    }
+  });
+}
+
+/**
+ * extend
+ * 
+ * @param {Vue} Vue
+ * @return {Vue}
+ */
+
+function Extend (Vue) {
+  var getPath = compare('1.0.8', Vue.version) === -1 ? Vue.parsers.path.getPath : Vue.parsers.path.get;
+  var util = Vue.util;
+
+  function getVal(key, lang, args) {
+    var value = key;
+    try {
+      var locale = Vue.locale(lang);
+      var val = getPath(locale, key) || locale[key];
+      value = (args ? format(val, args) : val) || key;
+    } catch (e) {
+      value = key;
+    }
+    return value;
+  }
+
+  /**
+   * Vue.t
+   *
+   * @param {String} key
+   * @param {Array} ...args
+   * @return {String}
+   */
+
+  Vue.t = function (key) {
+    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    if (!key) {
+      return '';
+    }
+
+    var language = Vue.config.lang;
+    if (args.length === 1) {
+      if (util.isObject(args[0]) || util.isArray(args[0])) {
+        args = args[0];
+      } else if (typeof args[0] === 'string') {
+        language = args[0];
+      }
+    } else if (args.length === 2) {
+      if (typeof args[0] === 'string') {
+        language = args[0];
+      }
+      if (util.isObject(args[1]) || util.isArray(args[1])) {
+        args = args[1];
+      }
+    }
+
+    return getVal(key, language, args);
+  };
+
+  /**
+   * $t
+   *
+   * @param {String} key
+   * @param {Array} ...args
+   * @return {String}
+   */
+
+  Vue.prototype.$t = function (key) {
+    for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+      args[_key2 - 1] = arguments[_key2];
+    }
+
+    return Vue.t.apply(Vue, [key].concat(args));
+  };
+
+  return Vue;
+}
+
+var langVM = void 0; // singleton
+
+/**
+ * plugin
+ *
+ * @param {Object} Vue
+ * @param {Object} opts
+ */
+
+function plugin(Vue) {
+  var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+  if (process.env.NODE_ENV !== 'production' && plugin.installed) {
+    warn('already installed.');
+    return;
+  }
+
+  if (process.env.NODE_ENV !== 'production' && (!Vue.version || compare(Vue.version, '1.0') < 0)) {
+    warn('vue-i18n (' + plugin.version + ') need to use vue version 1.0 or later (vue version: ' + Vue.version + ').');
+    return;
+  }
+
+  if (process.env.NODE_ENV !== 'production' && opts.lang) {
+    warn('`options.lang` will be deprecated in vue-i18n 3.1 later.');
+  }
+  var lang = opts.lang || 'en';
+
+  if (process.env.NODE_ENV !== 'production' && opts.locales) {
+    warn('`options.locales` will be deprecated in vue-i18n 3.1 later.');
+  }
+  var locales = opts.locales || {};
+
+  exports$1.Vue = Vue;
+  setupLangVM(Vue, lang);
+
+  Asset(Vue);
+  setupLocale(Vue, locales);
+
+  Override(Vue, langVM);
+  Config(Vue, langVM);
+  Extend(Vue);
+}
+
+function setupLangVM(Vue, lang) {
+  var silent = Vue.config.silent;
+  Vue.config.silent = true;
+  if (!langVM) {
+    langVM = new Vue({ data: { lang: lang } });
+  }
+  Vue.config.silent = silent;
+}
+
+function setupLocale(Vue, locales) {
+  if (!empty(locales)) {
+    each(locales, function (locale, lang) {
+      Vue.locale(lang, locale);
+    });
+  }
+}
+
+plugin.version = '3.0.0';
+
+module.exports = plugin;
+}).call(this,require('_process'))
+},{"_process":43}],46:[function(require,module,exports){
 /**
  * Before Interceptor.
  */
@@ -23507,7 +24061,7 @@ module.exports = {
 
 };
 
-},{"../util":68}],46:[function(require,module,exports){
+},{"../util":69}],47:[function(require,module,exports){
 /**
  * Base client.
  */
@@ -23574,7 +24128,7 @@ function parseHeaders(str) {
     return headers;
 }
 
-},{"../../promise":61,"../../util":68,"./xhr":49}],47:[function(require,module,exports){
+},{"../../promise":62,"../../util":69,"./xhr":50}],48:[function(require,module,exports){
 /**
  * JSONP client.
  */
@@ -23624,7 +24178,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":61,"../../util":68}],48:[function(require,module,exports){
+},{"../../promise":62,"../../util":69}],49:[function(require,module,exports){
 /**
  * XDomain client (Internet Explorer).
  */
@@ -23663,7 +24217,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":61,"../../util":68}],49:[function(require,module,exports){
+},{"../../promise":62,"../../util":69}],50:[function(require,module,exports){
 /**
  * XMLHttp client.
  */
@@ -23715,7 +24269,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":61,"../../util":68}],50:[function(require,module,exports){
+},{"../../promise":62,"../../util":69}],51:[function(require,module,exports){
 /**
  * CORS Interceptor.
  */
@@ -23754,7 +24308,7 @@ function crossOrigin(request) {
     return (requestUrl.protocol !== originUrl.protocol || requestUrl.host !== originUrl.host);
 }
 
-},{"../util":68,"./client/xdr":48}],51:[function(require,module,exports){
+},{"../util":69,"./client/xdr":49}],52:[function(require,module,exports){
 /**
  * Header Interceptor.
  */
@@ -23782,7 +24336,7 @@ module.exports = {
 
 };
 
-},{"../util":68}],52:[function(require,module,exports){
+},{"../util":69}],53:[function(require,module,exports){
 /**
  * Service for sending network requests.
  */
@@ -23882,7 +24436,7 @@ Http.headers = {
 
 module.exports = _.http = Http;
 
-},{"../promise":61,"../util":68,"./before":45,"./client":46,"./cors":50,"./header":51,"./interceptor":53,"./jsonp":54,"./method":55,"./mime":56,"./timeout":57}],53:[function(require,module,exports){
+},{"../promise":62,"../util":69,"./before":46,"./client":47,"./cors":51,"./header":52,"./interceptor":54,"./jsonp":55,"./method":56,"./mime":57,"./timeout":58}],54:[function(require,module,exports){
 /**
  * Interceptor factory.
  */
@@ -23929,7 +24483,7 @@ function when(value, fulfilled, rejected) {
     return promise.then(fulfilled, rejected);
 }
 
-},{"../promise":61,"../util":68}],54:[function(require,module,exports){
+},{"../promise":62,"../util":69}],55:[function(require,module,exports){
 /**
  * JSONP Interceptor.
  */
@@ -23949,7 +24503,7 @@ module.exports = {
 
 };
 
-},{"./client/jsonp":47}],55:[function(require,module,exports){
+},{"./client/jsonp":48}],56:[function(require,module,exports){
 /**
  * HTTP method override Interceptor.
  */
@@ -23968,7 +24522,7 @@ module.exports = {
 
 };
 
-},{}],56:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 /**
  * Mime Interceptor.
  */
@@ -24006,7 +24560,7 @@ module.exports = {
 
 };
 
-},{"../util":68}],57:[function(require,module,exports){
+},{"../util":69}],58:[function(require,module,exports){
 /**
  * Timeout Interceptor.
  */
@@ -24038,7 +24592,7 @@ module.exports = function () {
     };
 };
 
-},{}],58:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 /**
  * Install plugin.
  */
@@ -24093,7 +24647,7 @@ if (window.Vue) {
 
 module.exports = install;
 
-},{"./http":52,"./promise":61,"./resource":62,"./url":63,"./util":68}],59:[function(require,module,exports){
+},{"./http":53,"./promise":62,"./resource":63,"./url":64,"./util":69}],60:[function(require,module,exports){
 /**
  * Promises/A+ polyfill v1.1.4 (https://github.com/bramstein/promis)
  */
@@ -24274,7 +24828,7 @@ p.catch = function (onRejected) {
 
 module.exports = Promise;
 
-},{"../util":68}],60:[function(require,module,exports){
+},{"../util":69}],61:[function(require,module,exports){
 /**
  * URL Template v2.0.6 (https://github.com/bramstein/url-template)
  */
@@ -24426,7 +24980,7 @@ exports.encodeReserved = function (str) {
     }).join('');
 };
 
-},{}],61:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 /**
  * Promise adapter.
  */
@@ -24537,7 +25091,7 @@ p.always = function (callback) {
 
 module.exports = Promise;
 
-},{"./lib/promise":59,"./util":68}],62:[function(require,module,exports){
+},{"./lib/promise":60,"./util":69}],63:[function(require,module,exports){
 /**
  * Service for interacting with RESTful services.
  */
@@ -24649,7 +25203,7 @@ Resource.actions = {
 
 module.exports = _.resource = Resource;
 
-},{"./util":68}],63:[function(require,module,exports){
+},{"./util":69}],64:[function(require,module,exports){
 /**
  * Service for URL templating.
  */
@@ -24781,7 +25335,7 @@ function serialize(params, obj, scope) {
 
 module.exports = _.url = Url;
 
-},{"../util":68,"./legacy":64,"./query":65,"./root":66,"./template":67}],64:[function(require,module,exports){
+},{"../util":69,"./legacy":65,"./query":66,"./root":67,"./template":68}],65:[function(require,module,exports){
 /**
  * Legacy Transform.
  */
@@ -24829,7 +25383,7 @@ function encodeUriQuery(value, spaces) {
         replace(/%20/g, (spaces ? '%20' : '+'));
 }
 
-},{"../util":68}],65:[function(require,module,exports){
+},{"../util":69}],66:[function(require,module,exports){
 /**
  * Query Parameter Transform.
  */
@@ -24855,7 +25409,7 @@ module.exports = function (options, next) {
     return url;
 };
 
-},{"../util":68}],66:[function(require,module,exports){
+},{"../util":69}],67:[function(require,module,exports){
 /**
  * Root Prefix Transform.
  */
@@ -24873,7 +25427,7 @@ module.exports = function (options, next) {
     return url;
 };
 
-},{"../util":68}],67:[function(require,module,exports){
+},{"../util":69}],68:[function(require,module,exports){
 /**
  * URL Template (RFC 6570) Transform.
  */
@@ -24891,7 +25445,7 @@ module.exports = function (options) {
     return url;
 };
 
-},{"../lib/url-template":60}],68:[function(require,module,exports){
+},{"../lib/url-template":61}],69:[function(require,module,exports){
 /**
  * Utility functions.
  */
@@ -25015,7 +25569,7 @@ function merge(target, source, deep) {
     }
 }
 
-},{}],69:[function(require,module,exports){
+},{}],70:[function(require,module,exports){
 /*!
  * vue-router v0.7.13
  * (c) 2016 Evan You
@@ -27725,7 +28279,7 @@ function merge(target, source, deep) {
   return Router;
 
 }));
-},{}],70:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 (function (process){
 /*!
  * vue-validator v2.1.0
@@ -30325,7 +30879,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 module.exports = plugin;
 }).call(this,require('_process'))
-},{"_process":43}],71:[function(require,module,exports){
+},{"_process":43}],72:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v1.0.21
@@ -40251,7 +40805,7 @@ setTimeout(function () {
 
 module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":43}],72:[function(require,module,exports){
+},{"_process":43}],73:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 exports.insert = function (css) {
@@ -40271,7 +40825,7 @@ exports.insert = function (css) {
   return elem
 }
 
-},{}],73:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 'use strict';
 
 var _vue = require('vue');
@@ -40290,12 +40844,16 @@ var _routes = require('./routes');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var VueI18n = require('vue-i18n');
+
 _vue2.default.use(require('vue-resource'));
 _vue2.default.use(require('vue-router'));
 _vue2.default.use(_vueValidator2.default);
+_vue2.default.use(VueI18n);
 
 _vue2.default.config.debug = true;
 _vue2.default.config.devtools = true;
+_vue2.default.config.lang = 'en';
 
 // Import the actual routes, aliases, ...
 
@@ -40306,8 +40864,46 @@ var router = new _vueRouter2.default();
 // Inject the routes into the VueRouter object
 (0, _routes.configRouter)(router);
 
+// Import language file
+var locales = {
+		en: {
+				sidebar: {
+						dashboard: 'Dashboard',
+						contacts: 'Contacts'
+				},
+				contact: {
+						contacts: 'Contacts',
+						create_contact: 'Create Contact',
+						all: 'All',
+						suppliers: 'Suppliers',
+						clients: 'Clients',
+						partner: 'Partners',
+						interested_persons: 'Interested Persons',
+						type: 'Type',
+						name: 'Name',
+						city: 'City',
+						client_number: 'Client Nr.',
+						modal: {
+								cancel: 'Cancel',
+								save: 'Save',
+								fix_errors: 'Fix Errors',
+								organisation: 'Organisation',
+								private_person: 'Private Person',
+								'additional_name': 'Additional Name',
+								name_of_the_organisation: 'Name of the Organisation'
+						}
+				}
+		}
+};
+
+// set locales
+// RECOMMEND: 3.0 or later
+Object.keys(locales).forEach(function (lang) {
+		_vue2.default.locale(lang, locales[lang]);
+});
+
 router.beforeEach(function () {
-    window.scrollTo(0, 0);
+		window.scrollTo(0, 0);
 });
 
 // Bootstrap the app
@@ -40315,7 +40911,7 @@ router.beforeEach(function () {
 var App = _vue2.default.extend(require('./app.vue'));
 router.start(App, '#app');
 
-},{"./app.vue":74,"./routes":82,"vue":71,"vue-resource":58,"vue-router":69,"vue-validator":70}],74:[function(require,module,exports){
+},{"./app.vue":75,"./routes":83,"vue":72,"vue-i18n":45,"vue-resource":59,"vue-router":70,"vue-validator":71}],75:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert(".main > div > .box {\n  position: fixed;\n  height: calc(100% - 220px);\n  width: calc(100% - 270px);\n  top: 160px;\n  overflow: auto;\n  z-index: 1;\n}\n")
 'use strict';
 
@@ -40349,7 +40945,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./components/includes/sidebar.vue":80,"vue":71,"vue-hot-reload-api":44,"vueify-insert-css":72}],75:[function(require,module,exports){
+},{"./components/includes/sidebar.vue":81,"vue":72,"vue-hot-reload-api":44,"vueify-insert-css":73}],76:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("table {\n  font-size: 13px;\n  cursor: pointer !important;\n}\ntable tr:hover {\n  background: rgba(195,195,195,0.18);\n}\ntable thead tr:hover {\n  background: none;\n}\ntable thead th {\n  padding-left: 0;\n}\n.contact-column th,\n.contact-column td {\n  padding: 18px 0 5px 0;\n}\n.contact-type {\n  overflow: hidden;\n  padding-bottom: 15px;\n  padding-bottom: 10px;\n}\n.contact-type .fa {\n  font-size: 20px;\n}\n.contact-type span {\n  color: #fff;\n  position: relative;\n  top: 5px;\n  left: -7px;\n  padding-left: 3px;\n  padding-right: 3px;\n  font-size: 10px;\n}\n")
 'use strict';
 
@@ -40413,7 +41009,7 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n    <div class=\"vue-loading\" v-if=\"$loadingRouteData\">\n        <div class=\"loader\">Loading ...</div>\n    </div>\n\n    <div v-if=\"!$loadingRouteData\">\n\n\t\t<div class=\"dashhead bg-light b-b\">\n\t\t\t<section class=\"row b-b b-b-light pb25 mb20\">\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<h1>Kontakte</h1>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<a class=\"btn btn-border green right\" @click=\"showModal = true\">Kontakt erstellen</a>\n\n\t\t\t\t\t  <!-- use the modal component, pass in the prop -->\n\t\t\t\t\t  <modal :show.sync=\"showModal\" :md=\"true\">\n\t\t\t\t\t    <!--\n\t\t\t\t\t      you can use custom content here to overwrite\n\t\t\t\t\t      default content\n\t\t\t\t\t    -->\n\t\t\t\t\t    <h3 slot=\"header\">Kontakt erstellen</h3>\n\t\t\t\t\t  </modal>\n\n\t\t\t\t</div>\n\t\t\t</section>\n\n\t\t\t<nav class=\"\">\n\t\t\t\t<ul>\n\t\t\t\t\t<li :class=\"{'active': tabAnalytics}\">\n\t\t\t\t\t\t<a @click=\"analytics\">Alle</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">Lieferanten</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">Kunden</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">Partner</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">Interessenten</a>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</nav>\n\t\t</div>\n\n\t\t<div class=\"box m35 no-padding\">\n\t\t\t<table class=\"table table-striped\">\n\t\t\t  <thead>\n\t\t\t    <tr>\n\t\t\t\t\t<th>@{{ trans('contacts.typ') }}</th>\n\t\t\t      <th>KdNr.</th>\n\t\t\t      <th>Name</th>\n\t\t\t\t\t<th>Ort</th>\n\t\t\t    </tr>\n\t\t\t  </thead>\n\t\t\t  <tbody>\n\t\t\t    <tr v-for=\"contact in contacts\" class=\"contact-column\">\n\t\t\t\t\t<th>\n\t\t\t\t\t\t<div class=\"contact-type\">\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 1\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-user\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#3966b2\">K</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 2\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#d6cb16\">L</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 3\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#d6cb16\">L</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 4\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#8339b2\">P</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</th>\n\t\t\t      <th scope=\"row\">{{contact.id}}</th>\n\t\t\t      <td>{{contact.billingaddress.company}}</td>\n\t\t\t\t\t<td>{{contact.billingaddress.postalcode}} {{contact.billingaddress.city}}</td>\n\t\t\t    </tr>\n\t\t\t  </tbody>\n\t\t\t</table>\n\t\t</div>\n\n\t</div>\n\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n    <div class=\"vue-loading\" v-if=\"$loadingRouteData\">\n        <div class=\"loader\">Loading ...</div>\n    </div>\n\n    <div v-if=\"!$loadingRouteData\">\n\n\t\t<div class=\"dashhead bg-light b-b\">\n\t\t\t<section class=\"row b-b b-b-light pb25 mb20\">\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<h1>{{ $t(\"contact.contacts\") }}</h1>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<a class=\"btn btn-border green right\" @click=\"showModal = true\">{{ $t(\"contact.create_contact\") }}</a>\n\n\t\t\t\t\t  <!-- use the modal component, pass in the prop -->\n\t\t\t\t\t  <modal :show.sync=\"showModal\" :md=\"true\">\n\t\t\t\t\t    <!--\n\t\t\t\t\t      you can use custom content here to overwrite\n\t\t\t\t\t      default content\n\t\t\t\t\t    -->\n\t\t\t\t\t    <h3 slot=\"header\">{{ $t(\"contact.create_contact\") }}</h3>\n\t\t\t\t\t  </modal>\n\n\t\t\t\t</div>\n\t\t\t</section>\n\n\t\t\t<nav class=\"\">\n\t\t\t\t<ul>\n\t\t\t\t\t<li :class=\"{'active': tabAnalytics}\">\n\t\t\t\t\t\t<a @click=\"analytics\">{{ $t(\"contact.all\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.suppliers\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.clients\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.partner\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.interested_persons\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</nav>\n\t\t</div>\n\n\t\t<div class=\"box m35 no-padding\">\n\t\t\t<table class=\"table table-striped\">\n\t\t\t  <thead>\n\t\t\t    <tr>\n\t\t\t\t\t<th>{{ $t(\"contact.type\") }}</th>\n\t\t\t      <th>{{ $t(\"contact.client_number\") }}</th>\n\t\t\t      <th>{{ $t(\"contact.name\") }}</th>\n\t\t\t\t\t<th>{{ $t(\"contact.city\") }}</th>\n\t\t\t    </tr>\n\t\t\t  </thead>\n\t\t\t  <tbody>\n\t\t\t    <tr v-for=\"contact in contacts\" class=\"contact-column\">\n\t\t\t\t\t<th>\n\t\t\t\t\t\t<div class=\"contact-type\">\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 1\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-user\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#3966b2\">K</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 2\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#d6cb16\">L</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 3\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#d6cb16\">L</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 4\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#8339b2\">P</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</th>\n\t\t\t      <th scope=\"row\">{{contact.id}}</th>\n\t\t\t      <td>{{contact.billingaddress.company}}</td>\n\t\t\t\t\t<td>{{contact.billingaddress.postalcode}} {{contact.billingaddress.city}}</td>\n\t\t\t    </tr>\n\t\t\t  </tbody>\n\t\t\t</table>\n\t\t</div>\n\n\t</div>\n\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -40429,7 +41025,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../includes/modal.vue":79,"vue":71,"vue-hot-reload-api":44,"vueify-insert-css":72}],76:[function(require,module,exports){
+},{"../includes/modal.vue":80,"vue":72,"vue-hot-reload-api":44,"vueify-insert-css":73}],77:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40462,7 +41058,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../modules/graph":81,"vue":71,"vue-hot-reload-api":44}],77:[function(require,module,exports){
+},{"../modules/graph":82,"vue":72,"vue-hot-reload-api":44}],78:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40525,7 +41121,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./analytics.vue":76,"./sales.vue":78,"vue":71,"vue-hot-reload-api":44}],78:[function(require,module,exports){
+},{"./analytics.vue":77,"./sales.vue":79,"vue":72,"vue-hot-reload-api":44}],79:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40549,7 +41145,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":71,"vue-hot-reload-api":44}],79:[function(require,module,exports){
+},{"vue":72,"vue-hot-reload-api":44}],80:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert(".modal-mask {\n  position: fixed;\n  z-index: 9998;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0,0,0,0.5);\n  display: table;\n  -webkit-transition: opacity 0.3s ease;\n  transition: opacity 0.3s ease;\n}\n.modal-error {\n  background: #ffa2ad;\n  padding: 20px 36px;\n  border-bottom: solid 1px #de6f7b;\n  color: #af2534;\n  font-weight: 600;\n}\n.modal-tabs {\n  background: #222c3c;\n  padding: 0 36px;\n}\n.modal-tabs li {\n  float: left;\n  margin-right: 30px;\n}\n.modal-tabs li a {\n  color: #848c98;\n  font-weight: 600;\n  font-size: 14px;\n  padding: 20px 0 17px 0;\n  display: block;\n  -webkit-transition: color 0.1s ease-in-out 0s;\n  transition: color 0.1s ease-in-out 0s;\n  border-bottom: solid 4px transparent !important;\n}\n.modal-tabs li.active a,\n.modal-tabs li:hover a {\n  border-bottom: solid 4px #2096f0 !important;\n  color: #fff !important;\n}\n.modal-wrapper {\n  display: table-cell;\n  vertical-align: middle;\n}\n.modal-container {\n  width: 300px;\n  margin: 0px auto;\n  border-radius: 4px;\n  box-shadow: 0 2px 8px rgba(0,0,0,0.33);\n  -webkit-transition: all 0.3s ease;\n  transition: all 0.3s ease;\n  font-family: Helvetica, Arial, sans-serif;\n  position: relative;\n}\n.modal-container.modal-md {\n  width: 600px !important;\n}\n.modal-header {\n  background: #2096f0;\n  padding: 22px 36px;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n}\n.modal-header h3 {\n  color: #fff;\n  font-size: 16px;\n  font-weight: 600;\n}\n.modal-body {\n  padding: 22px 36px;\n  background: #fff;\n}\n.modal-default-button {\n  float: right;\n}\n.modal-footer {\n  overflow: hidden;\n  background: #f0f3f8;\n  padding: 13px 36px;\n  border-bottom-left-radius: 4px;\n  border-bottom-right-radius: 4px;\n}\n.modal-enter,\n.modal-leave {\n  opacity: 0;\n}\n.modal-enter .modal-container,\n.modal-leave .modal-container {\n  -webkit-transform: scale(1.1);\n  transform: scale(1.1);\n}\n")
 'use strict';
 
@@ -40617,7 +41213,7 @@ exports.default = {
 	}
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n  <div class=\"modal-mask\" v-show=\"show\" transition=\"modal\">\n    <div class=\"modal-wrapper\">\n      <div class=\"modal-container\" :class=\"{ 'modal-md': md }\">\n\n      \t<div class=\"dimmer\" :class=\"{ 'active': loading }\">\n      \t\t<div class=\"loading\"></div>\n      \t</div>\n\n        <div class=\"modal-header\">\n          <slot name=\"header\">\n            default header\n          </slot>\n        </div>\n\n        <div class=\"modal-tabs\">\n        \t<nav>\n\t        \t<ul>\n    \t\t\t\t<li :class=\"{ 'active': tabOrga }\"><a @click=\"orga\">Organisation</a></li>\n    \t\t\t\t<li :class=\"{ 'active': tabPrivate }\"><a @click=\"private\">Privatperson</a></li>\n\t        \t</ul>\n        \t</nav>\n        </div>\n        \n         <validator name=\"validation1\">\n\n         <!--\n        <div class=\"modal-error\" v-if=\" ! $validation1.valid\">\n        \t<p v-if=\"$validation1.organame.required\"><i class=\"fa fa-exclamation\" aria-hidden=\"true\"></i>\n        \tDer Name der Organisation fehlt.</p>\n        </div>\n        -->\n\n        <form v-on:submit.prevent=\"saveContact\" novalidate=\"\">\n\n        <div class=\"modal-body\" v-show=\"tabOrga\">\n          <slot name=\"body\">\n           \n            \t<div class=\"row\">\n            \t\t<div class=\"half-column\">\n            \t\t\t<div class=\"form-group\" :class=\"{ 'error': $validation1.organame.required}\">\n            \t\t\t\t<label>Name der Organisation</label>\n            \t\t\t\t<input type=\"text\" name=\"organame\" id=\"organame\" v-validate:organame=\"['required']\">\n        \t\t\t\t</div>\n            \t\t\t<div class=\"form-group\">\n            \t\t\t\t<label>Namenszusatz</label>\n            \t\t\t\t<input type=\"text\">\n        \t\t\t\t</div>\n            \t\t</div>\n            \t</div>\n          \n          </slot>\n        </div>\n\n        <div class=\"modal-body\" v-show=\"tabPrivate\">\n          <slot name=\"body\">\n            Private\n          </slot>\n        </div>\n\n        <div class=\"modal-footer\">\n          <slot name=\"footer\">\n\t\t\t<a class=\"btn btn-border left\" @click=\"close\">\n\t\t\t\tAbbrechen\n\t\t\t</a>\n            <button class=\"btn btn-border green right\" type=\"submit\" :disabled=\" ! $validation1.valid\">\n            \t<span v-show=\"! $validation1.valid\">Fehler beheben</span>\n            \t<span v-show=\"$validation1.valid\">Speichern</span>\n            </button>\n          </slot>\n        </div>\n\n        </form>\n        </validator>\n\n      </div>\n    </div>\n  </div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n  <div class=\"modal-mask\" v-show=\"show\" transition=\"modal\">\n    <div class=\"modal-wrapper\">\n      <div class=\"modal-container\" :class=\"{ 'modal-md': md }\">\n\n      \t<div class=\"dimmer\" :class=\"{ 'active': loading }\">\n      \t\t<div class=\"loading\"></div>\n      \t</div>\n\n        <div class=\"modal-header\">\n          <slot name=\"header\">\n            default header\n          </slot>\n        </div>\n\n        <div class=\"modal-tabs\">\n        \t<nav>\n\t        \t<ul>\n    \t\t\t\t<li :class=\"{ 'active': tabOrga }\"><a @click=\"orga\">{{ $t(\"contact.modal.organisation\") }}</a></li>\n    \t\t\t\t<li :class=\"{ 'active': tabPrivate }\"><a @click=\"private\">{{ $t(\"contact.modal.private_person\") }}</a></li>\n\t        \t</ul>\n        \t</nav>\n        </div>\n        \n         <validator name=\"validation1\">\n\n         <!--\n        <div class=\"modal-error\" v-if=\" ! $validation1.valid\">\n        \t<p v-if=\"$validation1.organame.required\"><i class=\"fa fa-exclamation\" aria-hidden=\"true\"></i>\n        \tDer Name der Organisation fehlt.</p>\n        </div>\n        -->\n\n        <form v-on:submit.prevent=\"saveContact\" novalidate=\"\">\n\n        <div class=\"modal-body\" v-show=\"tabOrga\">\n          <slot name=\"body\">\n           \n            \t<div class=\"row\">\n            \t\t<div class=\"half-column\">\n            \t\t\t<div class=\"form-group\" :class=\"{ 'error': $validation1.organame.required}\">\n            \t\t\t\t<label>{{ $t(\"contact.modal.name_of_the_organisation\") }}</label>\n            \t\t\t\t<input type=\"text\" name=\"organame\" id=\"organame\" v-validate:organame=\"['required']\">\n        \t\t\t\t</div>\n            \t\t\t<div class=\"form-group\">\n            \t\t\t\t<label>{{ $t(\"contact.modal.additional_name\") }}</label>\n            \t\t\t\t<input type=\"text\">\n        \t\t\t\t</div>\n            \t\t</div>\n            \t</div>\n          \n          </slot>\n        </div>\n\n        <div class=\"modal-body\" v-show=\"tabPrivate\">\n          <slot name=\"body\">\n            Private\n          </slot>\n        </div>\n\n        <div class=\"modal-footer\">\n          <slot name=\"footer\">\n\t\t\t<a class=\"btn btn-border left\" @click=\"close\">\n\t\t\t\t{{ $t(\"contact.modal.cancel\") }}\n\t\t\t</a>\n            <button class=\"btn btn-border green right\" type=\"submit\" :disabled=\" ! $validation1.valid\">\n            \t<span v-show=\"! $validation1.valid\">{{ $t(\"contact.modal.fix_errors\") }}</span>\n            \t<span v-show=\"$validation1.valid\">{{ $t(\"contact.modal.save\") }}</span>\n            </button>\n          </slot>\n        </div>\n\n        </form>\n        </validator>\n\n      </div>\n    </div>\n  </div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -40633,17 +41229,19 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"jquery":41,"vue":71,"vue-hot-reload-api":44,"vueify-insert-css":72}],80:[function(require,module,exports){
+},{"jquery":41,"vue":72,"vue-hot-reload-api":44,"vueify-insert-css":73}],81:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.default = {
+
     name: 'Sidebar'
+
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"sidebar\">\n\t<h3>Reports</h3>\n    <ul class=\"nav nav-sidebar\">\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: 'dashboard'}\"><i class=\"fa fa-deaf\" aria-hidden=\"true\"></i>\n        \tDashboard</a>\n        </li>\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: 'crm'}\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i>\n        \tKontakte</a>\n        </li>\n    </ul>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"sidebar\">\n\t<h3>Reports</h3>\n    <ul class=\"nav nav-sidebar\">\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: 'dashboard'}\"><i class=\"fa fa-deaf\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.dashboard\") }}</a>\n        </li>\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: 'crm'}\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.contacts\") }}</a>\n        </li>\n    </ul>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -40655,7 +41253,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":71,"vue-hot-reload-api":44}],81:[function(require,module,exports){
+},{"vue":72,"vue-hot-reload-api":44}],82:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40732,7 +41330,7 @@ exports.default = {
   }
 };
 
-},{"chart.js":1}],82:[function(require,module,exports){
+},{"chart.js":1}],83:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -40765,6 +41363,6 @@ module.exports = {
     }
 };
 
-},{"./components/contacts/index.vue":75,"./components/dashboard/analytics.vue":76,"./components/dashboard/index.vue":77}]},{},[73]);
+},{"./components/contacts/index.vue":76,"./components/dashboard/analytics.vue":77,"./components/dashboard/index.vue":78}]},{},[74]);
 
 //# sourceMappingURL=app.js.map
