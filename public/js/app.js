@@ -40868,47 +40868,54 @@ var router = new _vueRouter2.default();
 
 // Import language file
 var locales = {
-		en: {
-				sidebar: {
-						dashboard: 'Dashboard',
-						contacts: 'Contacts',
-						system: 'System',
-						settings: 'Settings'
-				},
-				contact: {
-						contacts: 'Contacts',
-						create_contact: 'Create Contact',
-						all: 'All',
-						suppliers: 'Suppliers',
-						clients: 'Clients',
-						partner: 'Partners',
-						interested_persons: 'Interested Persons',
-						type: 'Type',
-						name: 'Name',
-						city: 'City',
-						client_number: 'Client Nr.',
-						modal: {
-								cancel: 'Cancel',
-								save: 'Save',
-								fix_errors: 'Fix Errors',
-								organisation: 'Organisation',
-								private_person: 'Private Person',
-								additional_name: 'Additional Name',
-								name_of_the_organisation: 'Name of the Organisation',
-								client_number: 'Client Number'
-						}
-				}
-		}
+  en: {
+    sidebar: {
+      dashboard: 'Dashboard',
+      contacts: 'Contacts',
+      system: 'System',
+      settings: 'Settings',
+      company: 'Company'
+    },
+    contact: {
+      contacts: 'Contacts',
+      create_contact: 'Create Contact',
+      all: 'All',
+      suppliers: 'Suppliers',
+      clients: 'Clients',
+      partner: 'Partners',
+      interested_persons: 'Interested Persons',
+      type: 'Type',
+      name: 'Name',
+      city: 'City',
+      client_number: 'Client Nr.',
+      modal: {
+        cancel: 'Cancel',
+        save: 'Save',
+        fix_errors: 'Fix Errors',
+        organisation: 'Organisation',
+        private_person: 'Private Person',
+        additional_name: 'Additional Name',
+        name_of_the_organisation: 'Name of the Organisation',
+        client_number: 'Client Number'
+      }
+    },
+    system: {
+      settings: 'Settings',
+      company: 'Company',
+      general: 'General',
+      tabBankaccount: 'Bankaccount'
+    }
+  }
 };
 
 // set locales
 // RECOMMEND: 3.0 or later
 Object.keys(locales).forEach(function (lang) {
-		_vue2.default.locale(lang, locales[lang]);
+  _vue2.default.locale(lang, locales[lang]);
 });
 
 router.beforeEach(function () {
-		window.scrollTo(0, 0);
+  window.scrollTo(0, 0);
 });
 
 // Bootstrap the app
@@ -40916,7 +40923,7 @@ router.beforeEach(function () {
 var App = _vue2.default.extend(require('./app.vue'));
 router.start(App, '#app');
 
-},{"./app.vue":75,"./routes":84,"vue":72,"vue-i18n":45,"vue-resource":59,"vue-router":70,"vue-validator":71}],75:[function(require,module,exports){
+},{"./app.vue":75,"./routes":85,"vue":72,"vue-i18n":45,"vue-resource":59,"vue-router":70,"vue-validator":71}],75:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert(".main > div > .box {\n  position: fixed;\n  height: calc(100% - 220px);\n  width: calc(100% - 270px);\n  top: 160px;\n  overflow: auto;\n  z-index: 1;\n}\n")
 'use strict';
 
@@ -41248,7 +41255,7 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"jquery":41,"vue":72,"vue-hot-reload-api":44,"vueify-insert-css":73}],81:[function(require,module,exports){
-var __vueify_style__ = require("vueify-insert-css").insert("li.seperator {\n  background: #313d4f;\n  height: 1px;\n  margin: 20px 0;\n}\nli.title {\n  color: #5b6779;\n  text-transform: uppercase;\n  font-size: 12px;\n  margin: 30px 30px 15px 6px;\n  font-weight: 700;\n  list-style: none;\n  border: none;\n}\nli.title i {\n  float: right;\n  font-size: 14px;\n  line-height: 17px;\n}\nli.title:hover {\n  background: none;\n  border: none;\n}\n")
+var __vueify_style__ = require("vueify-insert-css").insert("li.seperator {\n  background: #313d4f;\n  height: 1px;\n  margin: 20px 0;\n}\nli.title {\n  color: #5b6779;\n  text-transform: uppercase;\n  font-size: 12px;\n  margin: 30px 30px 15px 6px;\n  font-weight: 700;\n  list-style: none;\n  border: none;\n}\nli.title i {\n  float: right;\n  font-size: 14px;\n  line-height: 17.5px;\n}\nli.title:hover {\n  background: none;\n  border: none;\n}\n")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41260,14 +41267,14 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"sidebar\">\n    <ul class=\"nav nav-sidebar\">\n        <li class=\"title\">Menu</li>\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: '/dashboard', activeClass: 'active'}\"><i class=\"fa fa-deaf\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.dashboard\") }}</a>\n        </li>\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: '/crm', activeClass: 'active'}\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.contacts\") }}</a>\n        </li>\n        <li class=\"seperator\"></li>\n        <li class=\"title\">{{ $t(\"sidebar.system\") }} <i class=\"fa fa-cog\" aria-hidden=\"true\"></i></li>\n        <li v-link-active=\"\">\n            <a v-link=\"{ path: '/system/settings', activeClass: 'active'}\"><i class=\"fa fa-tasks\" aria-hidden=\"true\"></i>\n            {{ $t(\"sidebar.settings\") }}</a>\n        </li>\n    </ul>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"sidebar\">\n    <ul class=\"nav nav-sidebar\">\n        <li class=\"title\">Menu <i class=\"fa fa-bars\" aria-hidden=\"true\"></i></li>\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: '/dashboard', activeClass: 'active'}\"><i class=\"fa fa-deaf\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.dashboard\") }}</a>\n        </li>\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: '/crm', activeClass: 'active'}\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.contacts\") }}</a>\n        </li>\n\n        <li class=\"seperator\"></li>\n\n        <li class=\"title\">{{ $t(\"sidebar.system\") }} <i class=\"fa fa-cog\" aria-hidden=\"true\"></i></li>\n\n        <li v-link-active=\"\">\n            <a v-link=\"{ path: '/system/settings', activeClass: 'active'}\"><i class=\"fa fa-tasks\" aria-hidden=\"true\"></i>\n            {{ $t(\"sidebar.settings\") }}</a>\n        </li>\n        <li v-link-active=\"\">\n            <a v-link=\"{ path: '/system/company', activeClass: 'active'}\"><i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n            {{ $t(\"sidebar.company\") }}</a>\n        </li>\n    </ul>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   var id = "/Users/christopherdosin/Desktop/code/laravoice/resources/assets/js/components/includes/sidebar.vue"
   module.hot.dispose(function () {
-    require("vueify-insert-css").cache["li.seperator {\n  background: #313d4f;\n  height: 1px;\n  margin: 20px 0;\n}\nli.title {\n  color: #5b6779;\n  text-transform: uppercase;\n  font-size: 12px;\n  margin: 30px 30px 15px 6px;\n  font-weight: 700;\n  list-style: none;\n  border: none;\n}\nli.title i {\n  float: right;\n  font-size: 14px;\n  line-height: 17px;\n}\nli.title:hover {\n  background: none;\n  border: none;\n}\n"] = false
+    require("vueify-insert-css").cache["li.seperator {\n  background: #313d4f;\n  height: 1px;\n  margin: 20px 0;\n}\nli.title {\n  color: #5b6779;\n  text-transform: uppercase;\n  font-size: 12px;\n  margin: 30px 30px 15px 6px;\n  font-weight: 700;\n  list-style: none;\n  border: none;\n}\nli.title i {\n  float: right;\n  font-size: 14px;\n  line-height: 17.5px;\n}\nli.title:hover {\n  background: none;\n  border: none;\n}\n"] = false
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
@@ -41360,6 +41367,47 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = {
+  name: 'Company',
+
+  route: {
+    data: function data(transition) {
+      setTimeout(function () {
+        transition.next();
+      }, 1000);
+    }
+  },
+
+  data: function data() {
+    return {
+      tabGeneral: true,
+      tabBankaccount: false
+    };
+  },
+
+
+  methods: {}
+
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n    <div class=\"vue-loading\" v-if=\"$loadingRouteData\">\n        <div class=\"loader\">Loading ...</div>\n    </div>\n\n    <div v-if=\"!$loadingRouteData\">\n\n\t\t<div class=\"dashhead bg-light b-b\">\n\t\t\t<section class=\"row pb5 mb20\">\n\t\t\t\t<h1>{{ $t(\"system.company\") }}</h1>\n\t\t\t</section>\n\t\t</div>\n\n\t\t<section class=\"row\">\n\t\t\t<div class=\"half-column\">\n\t\t\t\t<div class=\"box m35 dashhead no-padding\">\n\t\t\t\t\t<div class=\"box-head b-b\">\n\t\t\t\t\t\t<nav class=\"\">\n\t\t\t\t\t\t\t<ul>\n\t\t\t\t\t\t\t\t<li :class=\"{'active': tabGeneral}\">\n\t\t\t\t\t\t\t\t\t<a @click=\"analytics\">{{ $t(\"system.general\") }}</a>\n\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t\t<li :class=\"{'active': tabBankaccount}\">\n\t\t\t\t\t\t\t\t\t<a @click=\"analytics\">{{ $t(\"system.tabBankaccount\") }}</a>\n\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t</nav>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"box-content\">\n\t\t\t\t\t<p>Content</p>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</section>\n\n    </div>\n\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "/Users/christopherdosin/Desktop/code/laravoice/resources/assets/js/components/system/company.vue"
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":72,"vue-hot-reload-api":44}],84:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
   name: 'Settings',
 
   route: {
@@ -41372,7 +41420,7 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n    <div class=\"vue-loading\" v-if=\"$loadingRouteData\">\n        <div class=\"loader\">Loading ...</div>\n    </div>\n\n    <div v-if=\"!$loadingRouteData\">\n\n\t\t<div class=\"dashhead bg-light b-b\">\n\t\t\t<section class=\"row pb5 mb20\">\n\t\t\t\t<h1>Settings</h1>\n\t\t\t</section>\n\t\t</div>\n\n    </div>\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n    <div class=\"vue-loading\" v-if=\"$loadingRouteData\">\n        <div class=\"loader\">Loading ...</div>\n    </div>\n\n    <div v-if=\"!$loadingRouteData\">\n\n\t\t<div class=\"dashhead bg-light b-b\">\n\t\t\t<section class=\"row pb5 mb20\">\n\t\t\t\t<h1>{{ $t(\"system.settings\") }}</h1>\n\t\t\t</section>\n\t\t</div>\n\n    </div>\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -41384,7 +41432,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":72,"vue-hot-reload-api":44}],84:[function(require,module,exports){
+},{"vue":72,"vue-hot-reload-api":44}],85:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -41409,13 +41457,11 @@ module.exports = {
       '/crm': {
         component: require('./components/contacts/index.vue')
       },
-      '/system': {
-        component: require('./components/system/settings.vue'),
-        subRoutes: {
-          '/settings': {
-            component: require('./components/system/settings.vue')
-          }
-        }
+      '/system/settings': {
+        component: require('./components/system/settings.vue')
+      },
+      '/system/company': {
+        component: require('./components/system/company.vue')
       }
     });
 
@@ -41425,6 +41471,6 @@ module.exports = {
   }
 };
 
-},{"./components/contacts/index.vue":76,"./components/dashboard/analytics.vue":77,"./components/dashboard/index.vue":78,"./components/system/settings.vue":83}]},{},[74]);
+},{"./components/contacts/index.vue":76,"./components/dashboard/analytics.vue":77,"./components/dashboard/index.vue":78,"./components/system/company.vue":83,"./components/system/settings.vue":84}]},{},[74]);
 
 //# sourceMappingURL=app.js.map

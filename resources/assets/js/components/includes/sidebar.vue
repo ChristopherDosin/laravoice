@@ -1,7 +1,7 @@
 <template>
     <div class="sidebar">
         <ul class="nav nav-sidebar">
-            <li class="title">Menu</li>
+            <li class="title">Menu <i class="fa fa-bars" aria-hidden="true"></i></li>
             <li v-link-active>
             	<a v-link="{ path: '/dashboard', activeClass: 'active'}"><i class="fa fa-deaf" aria-hidden="true"></i>
             	{{ $t("sidebar.dashboard") }}</a>
@@ -10,11 +10,18 @@
             	<a v-link="{ path: '/crm', activeClass: 'active'}"><i class="fa fa-users" aria-hidden="true"></i>
             	{{ $t("sidebar.contacts") }}</a>
             </li>
+
             <li class="seperator"></li>
+
             <li class="title">{{ $t("sidebar.system") }} <i class="fa fa-cog" aria-hidden="true"></i></li>
+
             <li v-link-active>
                 <a v-link="{ path: '/system/settings', activeClass: 'active'}"><i class="fa fa-tasks" aria-hidden="true"></i>
                 {{ $t("sidebar.settings") }}</a>
+            </li>
+            <li v-link-active>
+                <a v-link="{ path: '/system/company', activeClass: 'active'}"><i class="fa fa-building-o" aria-hidden="true"></i>
+                {{ $t("sidebar.company") }}</a>
             </li>
         </ul>
     </div>
@@ -45,7 +52,7 @@ li.title {
     i {
         float:right;
         font-size 14px
-        line-height 17px
+        line-height 17.5px
     }
     &:hover {
         background:none;

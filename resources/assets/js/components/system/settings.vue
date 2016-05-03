@@ -8,7 +8,7 @@
 
 		<div class="dashhead bg-light b-b">
 			<section class="row pb5 mb20">
-				<h1>Settings</h1>
+				<h1>{{ $t("system.settings") }}</h1>
 			</section>
 		</div>
 
