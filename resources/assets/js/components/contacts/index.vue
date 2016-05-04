@@ -65,17 +65,17 @@
 								<i class="fa" :class="{ 'fa-user': contact.type.id == 1 }" aria-hidden="true"></i>
 								<span class="contact-type-label" style="background-color:#3966b2">{{contact.type.shortcut}}</span>
 							</div>
-							<div v-if="contact.usertype.id == 2">
+							<div v-if="contact.type.id == 2">
 								<i class="fa fa-building-o" aria-hidden="true"></i>
-								<span class="contact-type-label" style="background-color:#d6cb16">L</span>
+								<span class="contact-type-label" style="background-color:#d6cb16">{{contact.type.shortcut}}</span>
 							</div>
-							<div v-if="contact.usertype.id == 3">
+							<div v-if="contact.type.id == 3">
 								<i class="fa fa-building-o" aria-hidden="true"></i>
-								<span class="contact-type-label" style="background-color:#d6cb16">L</span>
+								<span class="contact-type-label" style="background-color:#d6cb16">{{contact.type.shortcut}}</span>
 							</div>
-							<div v-if="contact.usertype.id == 4">
+							<div v-if="contact.type.id == 4">
 								<i class="fa fa-building-o" aria-hidden="true"></i>
-								<span class="contact-type-label" style="background-color:#8339b2">P</span>
+								<span class="contact-type-label" style="background-color:#8339b2">{{contact.type.shortcut}}</span>
 							</div>
 						</div>
 					</th>

@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7cdee701-d9ed-4732-bb6d-892413a5eb98" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/ContactBillingAddress.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2015_12_20_143620_create_users_billingaddress_table.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/routes.php" afterPath="$PROJECT_DIR$/app/Http/routes.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/factories/ModelFactory.php" afterPath="$PROJECT_DIR$/database/factories/ModelFactory.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/app.js" afterPath="$PROJECT_DIR$/public/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/app.js.map" afterPath="$PROJECT_DIR$/public/js/app.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/app.js" afterPath="$PROJECT_DIR$/resources/assets/js/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/components/contacts/index.vue" afterPath="$PROJECT_DIR$/resources/assets/js/components/contacts/index.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/components/includes/sidebar.vue" afterPath="$PROJECT_DIR$/resources/assets/js/components/includes/sidebar.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/routes.js" afterPath="$PROJECT_DIR$/resources/assets/js/routes.js" />
     </list>
     <ignored path="laravoice.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -58,8 +47,8 @@
       <file leaf-file-name="index.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/assets/js/components/contacts/index.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
-              <caret line="168" column="27" selection-start-line="168" selection-start-column="20" selection-end-line="168" selection-end-column="27" />
+            <state relative-caret-position="413">
+              <caret line="77" column="123" selection-start-line="77" selection-start-column="123" selection-end-line="77" selection-end-column="123" />
               <folding>
                 <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#1;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#1;n#template#0;n#!!top" expanded="true" />
@@ -587,12 +576,12 @@
       <workItem from="1462014762497" duration="3165000" />
       <workItem from="1462021077149" duration="64000" />
       <workItem from="1462021149909" duration="1854000" />
-      <workItem from="1462173348960" duration="10703000" />
+      <workItem from="1462173348960" duration="10753000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21577000" />
+    <option name="totallyTimeSpent" value="21627000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="23" width="1445" height="823" extended-state="6" />
@@ -971,8 +960,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/assets/js/components/contacts/index.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="168" column="27" selection-start-line="168" selection-start-column="20" selection-end-line="168" selection-end-column="27" />
+        <state relative-caret-position="413">
+          <caret line="77" column="123" selection-start-line="77" selection-start-column="123" selection-end-line="77" selection-end-column="123" />
           <folding>
             <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#1;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#1;n#template#0;n#!!top" expanded="true" />
