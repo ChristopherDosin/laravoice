@@ -61,21 +61,9 @@
 			    <tr v-for="contact in contacts" class="contact-column">
 					<th>
 						<div class="contact-type">
-							<div v-if="contact.type.id == 1">
-								<i class="fa" :class="{ 'fa-user': contact.type.id == 1 }" aria-hidden="true"></i>
-								<span class="contact-type-label" style="background-color:#3966b2">{{contact.type.shortcut}}</span>
-							</div>
-							<div v-if="contact.type.id == 2">
-								<i class="fa fa-building-o" aria-hidden="true"></i>
-								<span class="contact-type-label" style="background-color:#d6cb16">{{contact.type.shortcut}}</span>
-							</div>
-							<div v-if="contact.type.id == 3">
-								<i class="fa fa-building-o" aria-hidden="true"></i>
-								<span class="contact-type-label" style="background-color:#d6cb16">{{contact.type.shortcut}}</span>
-							</div>
-							<div v-if="contact.type.id == 4">
-								<i class="fa fa-building-o" aria-hidden="true"></i>
-								<span class="contact-type-label" style="background-color:#8339b2">{{contact.type.shortcut}}</span>
+							<div>
+								<i class="fa {{ getIcon(contact.type.id) }}" aria-hidden="true"></i>
+								<span class="contact-type-label" :style="{ 'background-color': contact.type.color }">{{contact.type.shortcut}}</span>
 							</div>
 						</div>
 					</th>
@@ -186,7 +174,22 @@ export default {
 			}, function (response) {
 			   console.log(response.data)
 			});
-        }
+        },
+		getIcon(id) {
+			switch (id) {
+				case 0:
+					return 'fa-user'
+					break
+				case 1:
+					return 'fa-building-o'
+					break
+				case 2:
+					return 'fa-cart'
+					break
+				default:
+					return 'fa-stop'
+			}
+		}
 	}
 
 }
