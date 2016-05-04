@@ -184,10 +184,10 @@ export default {
 					return 'fa-building-o'
 					break
 				case 2:
-					return 'fa-cart'
+					return 'fa-user'
 					break
 				default:
-					return 'fa-stop'
+					return 'fa-building-o'
 			}
 		}
 	}
