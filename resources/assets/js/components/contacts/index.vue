@@ -61,9 +61,9 @@
 			    <tr v-for="contact in contacts" class="contact-column">
 					<th>
 						<div class="contact-type">
-							<div v-if="contact.usertype.id == 1">
-								<i class="fa fa-user" aria-hidden="true"></i>
-								<span class="contact-type-label" style="background-color:#3966b2">K</span>
+							<div v-if="contact.type.id == 1">
+								<i class="fa" :class="{ 'fa-user': contact.type.id == 1 }" aria-hidden="true"></i>
+								<span class="contact-type-label" style="background-color:#3966b2">{{contact.type.shortcut}}</span>
 							</div>
 							<div v-if="contact.usertype.id == 2">
 								<i class="fa fa-building-o" aria-hidden="true"></i>
@@ -80,8 +80,9 @@
 						</div>
 					</th>
 			      <th scope="row">{{contact.id}}</th>
-			      <td>{{contact.billingaddress.company}}</td>
-					<td>{{contact.billingaddress.postalcode}} {{contact.billingaddress.city}}</td>
+					<td v-if="contact.organisation">{{contact.organisation}}</td>
+					<td v-else>{{contact.last_name}}</td>
+					<td>{{contact.billing.postalcode}} {{contact.billing.city}}</td>
 			    </tr>
 			  </tbody>
 			</table>
@@ -164,8 +165,8 @@ export default {
 	},
 
 	computed: {
-		usertype: function() {
-
+		type: function() {
+			if(this.contact.type.id == 1);
 		}
 	},
 

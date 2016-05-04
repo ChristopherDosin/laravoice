@@ -33,6 +33,7 @@ var locales = {
   		system: 'System',
   		settings: 'Settings',
   		company: 'Company',
+  		usermanagement: 'User Management',
   	},
     contact: {
     	contacts: 'Contacts',
@@ -61,6 +62,8 @@ var locales = {
     	settings: 'Settings',
     	company: 'Company',
     	general: 'General',
+    	users: 'Users',
+    	usermanagement: 'User Management',
     	tabBankaccount: 'Bankaccount',
     }
   }

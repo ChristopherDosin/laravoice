@@ -25,6 +25,9 @@ module.exports = {
           },
           '/system/company': {
             component: require('./components/system/company.vue')
+          },
+          '/system/usermanagement': {
+            component: require('./components/system/users.vue')
           }
         })
 

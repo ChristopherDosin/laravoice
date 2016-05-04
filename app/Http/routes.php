@@ -20,9 +20,13 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['middleware' => ['web'], 'as' => 'api.', 'prefix' => 'api', 'namespace' => 'Api'], function () {
 
-        Route::get('getContacts', [
-            'as' => 'getContacts', 'uses' => 'ContactController@getContacts'
-        ]);
+        //Route::get('getContacts', [
+        //    'as' => 'getContacts', 'uses' => 'ContactController@getContacts'
+        // ]);
+
+        Route::get('getContacts', function() {
+            return App\Contact::with('billing', 'type')->get();
+        });
 
         Route::post('saveContact', [
             'as' => 'saveContact', 'uses' => 'ContactController@saveContact'

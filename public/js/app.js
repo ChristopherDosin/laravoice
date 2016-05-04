@@ -40874,7 +40874,8 @@ var locales = {
       contacts: 'Contacts',
       system: 'System',
       settings: 'Settings',
-      company: 'Company'
+      company: 'Company',
+      usermanagement: 'User Management'
     },
     contact: {
       contacts: 'Contacts',
@@ -40903,6 +40904,8 @@ var locales = {
       settings: 'Settings',
       company: 'Company',
       general: 'General',
+      users: 'Users',
+      usermanagement: 'User Management',
       tabBankaccount: 'Bankaccount'
     }
   }
@@ -40923,7 +40926,7 @@ router.beforeEach(function () {
 var App = _vue2.default.extend(require('./app.vue'));
 router.start(App, '#app');
 
-},{"./app.vue":75,"./routes":85,"vue":72,"vue-i18n":45,"vue-resource":59,"vue-router":70,"vue-validator":71}],75:[function(require,module,exports){
+},{"./app.vue":75,"./routes":86,"vue":72,"vue-i18n":45,"vue-resource":59,"vue-router":70,"vue-validator":71}],75:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert(".main > div > .box {\n  position: fixed;\n  height: calc(100% - 220px);\n  width: calc(100% - 270px);\n  top: 160px;\n  overflow: auto;\n  z-index: 1;\n}\n")
 'use strict';
 
@@ -40999,7 +41002,9 @@ exports.default = {
 	},
 
 	computed: {
-		usertype: function usertype() {}
+		type: function type() {
+			if (this.contact.type.id == 1) ;
+		}
 	},
 
 	methods: {
@@ -41023,7 +41028,7 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n    <div class=\"vue-loading\" v-if=\"$loadingRouteData\">\n        <div class=\"loader\">Loading ...</div>\n    </div>\n\n    <div v-if=\"!$loadingRouteData\">\n\n\t\t<div class=\"dashhead bg-light b-b\">\n\t\t\t<section class=\"row b-b b-b-light pb25 mb20\">\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<h1>{{ $t(\"contact.contacts\") }}</h1>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<a class=\"btn btn-border green right\" @click=\"showModal = true\">{{ $t(\"contact.create_contact\") }}</a>\n\n\t\t\t\t\t  <!-- use the modal component, pass in the prop -->\n\t\t\t\t\t  <modal :show.sync=\"showModal\" :md=\"true\">\n\t\t\t\t\t    <!--\n\t\t\t\t\t      you can use custom content here to overwrite\n\t\t\t\t\t      default content\n\t\t\t\t\t    -->\n\t\t\t\t\t    <h3 slot=\"header\">{{ $t(\"contact.create_contact\") }}</h3>\n\t\t\t\t\t  </modal>\n\n\t\t\t\t</div>\n\t\t\t</section>\n\n\t\t\t<nav class=\"\">\n\t\t\t\t<ul>\n\t\t\t\t\t<li :class=\"{'active': tabAnalytics}\">\n\t\t\t\t\t\t<a @click=\"analytics\">{{ $t(\"contact.all\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.suppliers\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.clients\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.partner\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.interested_persons\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</nav>\n\t\t</div>\n\n\t\t<div class=\"box m35 no-padding\">\n\t\t\t<table class=\"table table-striped\">\n\t\t\t  <thead>\n\t\t\t    <tr>\n\t\t\t\t\t<th>{{ $t(\"contact.type\") }}</th>\n\t\t\t      <th>{{ $t(\"contact.client_number\") }}</th>\n\t\t\t      <th>{{ $t(\"contact.name\") }}</th>\n\t\t\t\t\t<th>{{ $t(\"contact.city\") }}</th>\n\t\t\t    </tr>\n\t\t\t  </thead>\n\t\t\t  <tbody>\n\t\t\t    <tr v-for=\"contact in contacts\" class=\"contact-column\">\n\t\t\t\t\t<th>\n\t\t\t\t\t\t<div class=\"contact-type\">\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 1\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-user\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#3966b2\">K</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 2\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#d6cb16\">L</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 3\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#d6cb16\">L</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 4\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#8339b2\">P</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</th>\n\t\t\t      <th scope=\"row\">{{contact.id}}</th>\n\t\t\t      <td>{{contact.billingaddress.company}}</td>\n\t\t\t\t\t<td>{{contact.billingaddress.postalcode}} {{contact.billingaddress.city}}</td>\n\t\t\t    </tr>\n\t\t\t  </tbody>\n\t\t\t</table>\n\t\t</div>\n\n\t</div>\n\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n    <div class=\"vue-loading\" v-if=\"$loadingRouteData\">\n        <div class=\"loader\">Loading ...</div>\n    </div>\n\n    <div v-if=\"!$loadingRouteData\">\n\n\t\t<div class=\"dashhead bg-light b-b\">\n\t\t\t<section class=\"row b-b b-b-light pb25 mb20\">\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<h1>{{ $t(\"contact.contacts\") }}</h1>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<a class=\"btn btn-border green right\" @click=\"showModal = true\">{{ $t(\"contact.create_contact\") }}</a>\n\n\t\t\t\t\t  <!-- use the modal component, pass in the prop -->\n\t\t\t\t\t  <modal :show.sync=\"showModal\" :md=\"true\">\n\t\t\t\t\t    <!--\n\t\t\t\t\t      you can use custom content here to overwrite\n\t\t\t\t\t      default content\n\t\t\t\t\t    -->\n\t\t\t\t\t    <h3 slot=\"header\">{{ $t(\"contact.create_contact\") }}</h3>\n\t\t\t\t\t  </modal>\n\n\t\t\t\t</div>\n\t\t\t</section>\n\n\t\t\t<nav class=\"\">\n\t\t\t\t<ul>\n\t\t\t\t\t<li :class=\"{'active': tabAnalytics}\">\n\t\t\t\t\t\t<a @click=\"analytics\">{{ $t(\"contact.all\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.suppliers\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.clients\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.partner\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.interested_persons\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</nav>\n\t\t</div>\n\n\t\t<div class=\"box m35 no-padding\">\n\t\t\t<table class=\"table table-striped\">\n\t\t\t  <thead>\n\t\t\t    <tr>\n\t\t\t\t\t<th>{{ $t(\"contact.type\") }}</th>\n\t\t\t      <th>{{ $t(\"contact.client_number\") }}</th>\n\t\t\t      <th>{{ $t(\"contact.name\") }}</th>\n\t\t\t\t\t<th>{{ $t(\"contact.city\") }}</th>\n\t\t\t    </tr>\n\t\t\t  </thead>\n\t\t\t  <tbody>\n\t\t\t    <tr v-for=\"contact in contacts\" class=\"contact-column\">\n\t\t\t\t\t<th>\n\t\t\t\t\t\t<div class=\"contact-type\">\n\t\t\t\t\t\t\t<div v-if=\"contact.type.id == 1\">\n\t\t\t\t\t\t\t\t<i class=\"fa\" :class=\"{ 'fa-user': contact.type.id == 1 }\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#3966b2\">{{contact.type.shortcut}}</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 2\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#d6cb16\">L</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 3\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#d6cb16\">L</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div v-if=\"contact.usertype.id == 4\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" style=\"background-color:#8339b2\">P</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</th>\n\t\t\t      <th scope=\"row\">{{contact.id}}</th>\n\t\t\t\t\t<td v-if=\"contact.organisation\">{{contact.organisation}}</td>\n\t\t\t\t\t<td v-else=\"\">{{contact.last_name}}</td>\n\t\t\t\t\t<td>{{contact.billing.postalcode}} {{contact.billing.city}}</td>\n\t\t\t    </tr>\n\t\t\t  </tbody>\n\t\t\t</table>\n\t\t</div>\n\n\t</div>\n\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -41267,7 +41272,7 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"sidebar\">\n    <ul class=\"nav nav-sidebar\">\n        <li class=\"title\">Menu <i class=\"fa fa-bars\" aria-hidden=\"true\"></i></li>\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: '/dashboard', activeClass: 'active'}\"><i class=\"fa fa-deaf\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.dashboard\") }}</a>\n        </li>\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: '/crm', activeClass: 'active'}\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.contacts\") }}</a>\n        </li>\n\n        <li class=\"seperator\"></li>\n\n        <li class=\"title\">{{ $t(\"sidebar.system\") }} <i class=\"fa fa-cog\" aria-hidden=\"true\"></i></li>\n\n        <li v-link-active=\"\">\n            <a v-link=\"{ path: '/system/settings', activeClass: 'active'}\"><i class=\"fa fa-tasks\" aria-hidden=\"true\"></i>\n            {{ $t(\"sidebar.settings\") }}</a>\n        </li>\n        <li v-link-active=\"\">\n            <a v-link=\"{ path: '/system/company', activeClass: 'active'}\"><i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n            {{ $t(\"sidebar.company\") }}</a>\n        </li>\n    </ul>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"sidebar\">\n    <ul class=\"nav nav-sidebar\">\n        <li class=\"title\">Menu <i class=\"fa fa-bars\" aria-hidden=\"true\"></i></li>\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: '/dashboard', activeClass: 'active'}\"><i class=\"fa fa-deaf\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.dashboard\") }}</a>\n        </li>\n        <li v-link-active=\"\">\n        \t<a v-link=\"{ path: '/crm', activeClass: 'active'}\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i>\n        \t{{ $t(\"sidebar.contacts\") }}</a>\n        </li>\n\n        <li class=\"seperator\"></li>\n\n        <li class=\"title\">{{ $t(\"sidebar.system\") }} <i class=\"fa fa-cog\" aria-hidden=\"true\"></i></li>\n\n        <li v-link-active=\"\">\n            <a v-link=\"{ path: '/system/settings', activeClass: 'active'}\"><i class=\"fa fa-tasks\" aria-hidden=\"true\"></i>\n            {{ $t(\"sidebar.settings\") }}</a>\n        </li>\n        <li v-link-active=\"\">\n            <a v-link=\"{ path: '/system/usermanagement', activeClass: 'active'}\"><i class=\"fa fa-user-secret\" aria-hidden=\"true\"></i>\n            {{ $t(\"sidebar.usermanagement\") }}</a>\n        </li>\n        <li v-link-active=\"\">\n            <a v-link=\"{ path: '/system/company', activeClass: 'active'}\"><i class=\"fa fa-building-o\" aria-hidden=\"true\"></i>\n            {{ $t(\"sidebar.company\") }}</a>\n        </li>\n    </ul>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -41435,6 +41440,52 @@ if (module.hot) {(function () {  module.hot.accept()
 },{"vue":72,"vue-hot-reload-api":44}],85:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  name: 'UserManagement',
+
+  route: {
+    data: function data(transition) {
+      setTimeout(function () {
+        transition.next();
+      }, 1000);
+    }
+  },
+
+  ready: function ready() {
+    this.getContacts();
+  },
+
+  methods: {
+    getContacts: function getContacts() {
+      // GET request
+      this.$http({ url: '/api/getContacts', method: 'GET' }).then(function (response) {
+        this.$set('contacts', response.data);
+      }, function (response) {
+        console.log(response.data);
+      });
+    }
+  }
+
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n    <div class=\"vue-loading\" v-if=\"$loadingRouteData\">\n        <div class=\"loader\">Loading ...</div>\n    </div>\n\n    <div v-if=\"!$loadingRouteData\">\n\n\t\t<div class=\"dashhead bg-light b-b\">\n\t\t\t<section class=\"row pb5 mb20\">\n\t\t\t\t<h1>{{ $t(\"system.usermanagement\") }}</h1>\n\t\t\t</section>\n\t\t</div>\n\n\n\t\t<div class=\"box m35 no-padding\">\n\t\t\t<table class=\"table table-striped\">\n\t\t\t  <thead>\n\t\t\t    <tr>\n\t\t\t\t\t<th>Name</th>\n\t\t\t\t\t<th>Email</th>\n\t\t\t\t\t<th>Typ</th>\n\t\t\t\t\t<th>#</th>\n\t\t\t    </tr>\n\t\t\t  </thead>\n\t\t\t  <tbody>\n\t\t\t    <tr v-for=\"contact in contacts\" class=\"contact-column\">\n\t\t\t\t\t<th>{{contact.first_name}}</th>\n\t\t\t\t\t<th scope=\"row\">{{contact.email}}</th>\n\t\t\t\t\t<td></td>\n\t\t\t\t\t<td></td>\n\t\t\t    </tr>\n\t\t\t  </tbody>\n\t\t\t</table>\n\t\t</div>\n\n    </div>\n\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "/Users/christopherdosin/Desktop/code/laravoice/resources/assets/js/components/system/users.vue"
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":72,"vue-hot-reload-api":44}],86:[function(require,module,exports){
+'use strict';
+
 module.exports = {
 
   configRouter: function configRouter(router) {
@@ -41462,6 +41513,9 @@ module.exports = {
       },
       '/system/company': {
         component: require('./components/system/company.vue')
+      },
+      '/system/usermanagement': {
+        component: require('./components/system/users.vue')
       }
     });
 
@@ -41471,6 +41525,6 @@ module.exports = {
   }
 };
 
-},{"./components/contacts/index.vue":76,"./components/dashboard/analytics.vue":77,"./components/dashboard/index.vue":78,"./components/system/company.vue":83,"./components/system/settings.vue":84}]},{},[74]);
+},{"./components/contacts/index.vue":76,"./components/dashboard/analytics.vue":77,"./components/dashboard/index.vue":78,"./components/system/company.vue":83,"./components/system/settings.vue":84,"./components/system/users.vue":85}]},{},[74]);
 
 //# sourceMappingURL=app.js.map
