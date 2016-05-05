@@ -156,7 +156,7 @@ export default {
 	events: {
 		'addContactToList': function (msg) {
 			// Listen for the Event if a new contact was created
-            // and make a new API Call to get the new user
+            // and make a new API Call to get the new contact
             this.$http({url: '/api/getContacts', method: 'GET'}).then(function (response) {
                 this.$set('contacts', response.data)
             });
