@@ -20,6 +20,10 @@ module.exports = {
           '/crm': {
             component: require('./components/contacts/index.vue'),
           },
+            '/crm/detail/id/:id': {
+                name: 'contactDetail',
+                component: require('./components/contacts/detail.vue')
+            },
           '/system/settings': {
             component: require('./components/system/settings.vue')
           },

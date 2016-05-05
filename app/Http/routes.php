@@ -12,6 +12,12 @@ Route::group(['middleware' => ['web']], function () {
         //    'as' => 'getContacts', 'uses' => 'ContactController@getContacts'
         // ]);
 
+        Route::group(['as' => 'contact.', 'prefix' => 'crm'], function () {
+            Route::get('/detail/id/{id}', function() {
+                return App\Contact::find(1);
+            });
+        });
+
         Route::get('getContacts', function() {
             return App\Contact::with('billing', 'type')->get();
         });

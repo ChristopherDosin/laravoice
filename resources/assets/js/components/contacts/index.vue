@@ -55,6 +55,7 @@
 			      <th>{{ $t("contact.client_number") }}</th>
 			      <th>{{ $t("contact.name") }}</th>
 					<th>{{ $t("contact.city") }}</th>
+                    <th>Actions</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -70,8 +71,11 @@
 			      <th scope="row">{{contact.id}}</th>
 					<td v-if="contact.organisation">{{contact.organisation}}</td>
 					<td v-else>{{contact.last_name}}</td>
-
-					<td><span v-if="contact.billing.postalcode">{{contact.billing.postalcode}} {{contact.billing.city}}</span></td>
+					<td>
+                        <span v-if="contact.billing">{{contact.billing.postalcode}} {{contact.billing.city}}</span>
+                        <span v-else class="label label-warning"><i class="fa fa-exclamation" aria-hidden="true"></i> No Address</span>
+                    </td>
+                    <td><a v-link="{ name: 'contactDetail', params: { id: contact.id }}">Klick</a></td>
 			    </tr>
 			  </tbody>
 			</table>

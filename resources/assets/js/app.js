@@ -56,7 +56,7 @@ var locales = {
 			additional_name: 'Additional Name',
 			name_of_the_organisation: 'Name of the Organisation',
 			client_number: 'Client Number',
-		}
+		},
     },
     system: {
     	settings: 'Settings',
