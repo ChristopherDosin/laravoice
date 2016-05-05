@@ -119,7 +119,8 @@ export default {
             contactType: {},
             contact: {
                 organisation: "",
-                contact_type_id: "1"
+                contact_type_id: "1",
+                id: ""
             }
 		}
 	},
@@ -138,9 +139,9 @@ export default {
     },
 
 	methods: {
-    		close() {
-    			this.show = false
-    		},
+        close() {
+            this.show = false
+        },
         orga() {
             this.tabOrga = true
             this.tabPrivate = false
