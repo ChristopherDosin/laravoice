@@ -42074,8 +42074,8 @@ var locales = {
       city: 'City',
       client_number: 'Client Nr.',
       modal: {
-        cancel: 'Cancel',
-        save: 'Save',
+        cancel: 'Cancel & Close',
+        save: 'Save Contact',
         fix_errors: 'Fix Errors',
         organisation: 'Organisation',
         private_person: 'Private Person',
