@@ -119,7 +119,7 @@ export default {
             contactType: {},
             contact: {
                 organisation: "",
-                contact_type_id: ""
+                contact_type_id: "1"
             }
 		}
 	},
@@ -159,8 +159,7 @@ export default {
           // Post request
           this.$http.post('/api/saveContact', this.contact).then(function (response) {
 
-              this.$root.contacts.push(this.contact)
-
+              this.$dispatch('addContactToList', this.contact);
               console.log(response.data);
 
           setTimeout(function(){

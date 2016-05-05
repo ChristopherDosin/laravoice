@@ -10,6 +10,7 @@
 			<section class="row b-b b-b-light pb25 mb20">
 				<div class="half-column">
 					<h1>{{ $t("contact.contacts") }}</h1>
+					<h3>Count is {{ counterValue }}</h3>
 				</div>
 				<div class="half-column">
 					<a class="btn btn-border green right" @click="showModal = true">{{ $t("contact.create_contact") }}</a>
@@ -125,12 +126,20 @@
 <script>
 
 import Modal from '../includes/modal.vue';
+import { getCount } from '../../vuex/getters'
 
 export default {
 
 	name: 'ContactsIndex',
 
 	components: { Modal },
+
+	vuex: {
+		getters: {
+			// note that you're passing the function itself, and not the value 'getCount()'
+			counterValue: getCount
+		}
+	},
 
     route: {
       data: function (transition) {
@@ -153,6 +162,14 @@ export default {
 		this.getContacts()
 	},
 
+	events: {
+		'addContactToList': function (msg) {
+			// `this` in event callbacks are automatically bound
+			// to the instance that registered it
+			this.contacts.push(msg)
+		}
+	},
+
 	methods: {
         analytics() {
             this.tabAnalytics = true
@@ -172,13 +189,13 @@ export default {
         },
 		getIcon(id) {
 			switch (id) {
-				case 0:
+				case 1:
 					return 'fa-user'
 					break
-				case 1:
+				case 2:
 					return 'fa-building-o'
 					break
-				case 2:
+				case 3:
 					return 'fa-user'
 					break
 				default:
