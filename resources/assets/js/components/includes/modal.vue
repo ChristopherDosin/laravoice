@@ -46,9 +46,9 @@
             	<div class="row">
 
               		<div class="half-column">
-              			<div class="form-group" :class="{ 'error': $validation1.organame.required}">
+              			<div class="form-group" :class="{ 'error': $validation1.organisation.required}">
               				<label>{{ $t("contact.modal.name_of_the_organisation") }}</label>
-              				<input type="text" name="organame" id="organame" v-validate:organame="['required']">
+              				<input type="text" name="organisation" id="organisation" v-validate:organisation="['required']" v-model="contact.organisation">
           				  </div>
               			<div class="form-group">
               				<label>{{ $t("contact.modal.additional_name") }}</label>
@@ -63,8 +63,8 @@
                     </div>
                     <div class="form-group">
                       <label>{{ $t("contact.type") }}</label>
-                        <select>
-                          <option>Client</option>
+                        <select name="contact_type_id" v-model="contact.contact_type_id">
+                          <option v-for="type in contactType" value="{{type.id}}">{{type.name}}</option>
                         </select>
                     </div>
                   </div>
@@ -109,24 +109,33 @@ import $ from 'jquery';
 export default {
 	name: 'ModalComponent',
 
-	props: {
-		show: {
-		  type: Boolean,
-		  required: true,
-		  twoWay: true,
-		},
-		md: true
-	},
-
 	data(){
 		return {
-			tabOrga: true,
-			tabPrivate: false,
-			loading: false,
-      spinner: false,
-      check: false,
+            tabOrga: true,
+            tabPrivate: false,
+            loading: false,
+            spinner: false,
+            check: false,
+            contactType: {},
+            contact: {
+                organisation: "",
+                contact_type_id: ""
+            }
 		}
 	},
+
+    ready(){
+        this.getContactTypes()
+    },
+
+    props: {
+        show: {
+            type: Boolean,
+            required: true,
+            twoWay: true,
+        },
+        md: true
+    },
 
 	methods: {
     		close() {
@@ -144,11 +153,15 @@ export default {
 
           this.spinner = true
           this.loading = true
-          this.ccheck = false
+          this.check = false
 
           var is = this
           // Post request
-          this.$http.post('/saveContact').then(function (response) {
+          this.$http.post('/api/saveContact', this.contact).then(function (response) {
+
+              this.contacts.push(this.contact);
+
+              console.log(response.data);
 
           setTimeout(function(){
             is.spinner = false
@@ -164,12 +177,23 @@ export default {
 
           }, function (response) {
 
+              console.log(response.data);
+
             setTimeout(function(){
               is.loading = false
             }, 1000);
 
           });
 
+        },
+
+        getContactTypes() {
+            // GET request
+            this.$http({url: '/api/getContactTypes', method: 'GET'}).then(function (response) {
+            this.$set('contactType', response.data)
+            }, function (response) {
+                console.log(response.data)
+            });
         }
 	}
 }

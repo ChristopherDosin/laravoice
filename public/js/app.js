@@ -41001,12 +41001,6 @@ exports.default = {
 		this.getContacts();
 	},
 
-	computed: {
-		type: function type() {
-			if (this.contact.type.id == 1) ;
-		}
-	},
-
 	methods: {
 		analytics: function analytics() {
 			this.tabAnalytics = true;
@@ -41043,7 +41037,7 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n    <div class=\"vue-loading\" v-if=\"$loadingRouteData\">\n        <div class=\"loader\">Loading ...</div>\n    </div>\n\n    <div v-if=\"!$loadingRouteData\">\n\n\t\t<div class=\"dashhead bg-light b-b\">\n\t\t\t<section class=\"row b-b b-b-light pb25 mb20\">\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<h1>{{ $t(\"contact.contacts\") }}</h1>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<a class=\"btn btn-border green right\" @click=\"showModal = true\">{{ $t(\"contact.create_contact\") }}</a>\n\n\t\t\t\t\t  <!-- use the modal component, pass in the prop -->\n\t\t\t\t\t  <modal :show.sync=\"showModal\" :md=\"true\">\n\t\t\t\t\t    <!--\n\t\t\t\t\t      you can use custom content here to overwrite\n\t\t\t\t\t      default content\n\t\t\t\t\t    -->\n\t\t\t\t\t    <h3 slot=\"header\">{{ $t(\"contact.create_contact\") }}</h3>\n\t\t\t\t\t  </modal>\n\n\t\t\t\t</div>\n\t\t\t</section>\n\n\t\t\t<nav class=\"\">\n\t\t\t\t<ul>\n\t\t\t\t\t<li :class=\"{'active': tabAnalytics}\">\n\t\t\t\t\t\t<a @click=\"analytics\">{{ $t(\"contact.all\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.suppliers\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.clients\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.partner\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.interested_persons\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</nav>\n\t\t</div>\n\n\t\t<div class=\"box m35 no-padding\">\n\t\t\t<table class=\"table table-striped\">\n\t\t\t  <thead>\n\t\t\t    <tr>\n\t\t\t\t\t<th>{{ $t(\"contact.type\") }}</th>\n\t\t\t      <th>{{ $t(\"contact.client_number\") }}</th>\n\t\t\t      <th>{{ $t(\"contact.name\") }}</th>\n\t\t\t\t\t<th>{{ $t(\"contact.city\") }}</th>\n\t\t\t    </tr>\n\t\t\t  </thead>\n\t\t\t  <tbody>\n\t\t\t    <tr v-for=\"contact in contacts\" class=\"contact-column\">\n\t\t\t\t\t<th>\n\t\t\t\t\t\t<div class=\"contact-type\">\n\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t<i class=\"fa {{ getIcon(contact.type.id) }}\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" :style=\"{ 'background-color': contact.type.color }\">{{contact.type.shortcut}}</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</th>\n\t\t\t      <th scope=\"row\">{{contact.id}}</th>\n\t\t\t\t\t<td v-if=\"contact.organisation\">{{contact.organisation}}</td>\n\t\t\t\t\t<td v-else=\"\">{{contact.last_name}}</td>\n\t\t\t\t\t<td>{{contact.billing.postalcode}} {{contact.billing.city}}</td>\n\t\t\t    </tr>\n\t\t\t  </tbody>\n\t\t\t</table>\n\t\t</div>\n\n\t</div>\n\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n    <div class=\"vue-loading\" v-if=\"$loadingRouteData\">\n        <div class=\"loader\">Loading ...</div>\n    </div>\n\n    <div v-if=\"!$loadingRouteData\">\n\n\t\t<div class=\"dashhead bg-light b-b\">\n\t\t\t<section class=\"row b-b b-b-light pb25 mb20\">\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<h1>{{ $t(\"contact.contacts\") }}</h1>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<a class=\"btn btn-border green right\" @click=\"showModal = true\">{{ $t(\"contact.create_contact\") }}</a>\n\n\t\t\t\t\t  <!-- use the modal component, pass in the prop -->\n\t\t\t\t\t  <modal :show.sync=\"showModal\" :md=\"true\">\n\t\t\t\t\t    <!--\n\t\t\t\t\t      you can use custom content here to overwrite\n\t\t\t\t\t      default content\n\t\t\t\t\t    -->\n\t\t\t\t\t    <h3 slot=\"header\">{{ $t(\"contact.create_contact\") }}</h3>\n\t\t\t\t\t  </modal>\n\n\t\t\t\t</div>\n\t\t\t</section>\n\n\t\t\t<nav class=\"\">\n\t\t\t\t<ul>\n\t\t\t\t\t<li :class=\"{'active': tabAnalytics}\">\n\t\t\t\t\t\t<a @click=\"analytics\">{{ $t(\"contact.all\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.suppliers\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.clients\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.partner\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.interested_persons\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</nav>\n\t\t</div>\n\n\t\t<div class=\"box m35 no-padding\">\n\t\t\t<table class=\"table table-striped\">\n\t\t\t  <thead>\n\t\t\t    <tr>\n\t\t\t\t\t<th>{{ $t(\"contact.type\") }}</th>\n\t\t\t      <th>{{ $t(\"contact.client_number\") }}</th>\n\t\t\t      <th>{{ $t(\"contact.name\") }}</th>\n\t\t\t\t\t<th>{{ $t(\"contact.city\") }}</th>\n\t\t\t    </tr>\n\t\t\t  </thead>\n\t\t\t  <tbody>\n\t\t\t    <tr v-for=\"contact in contacts\" class=\"contact-column\">\n\t\t\t\t\t<th>\n\t\t\t\t\t\t<div class=\"contact-type\">\n\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t<i class=\"fa {{ getIcon(contact.type.id) }}\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" :style=\"{ 'background-color': contact.type.color }\">{{contact.type.shortcut}}</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</th>\n\t\t\t      <th scope=\"row\">{{contact.id}}</th>\n\t\t\t\t\t<td v-if=\"contact.organisation\">{{contact.organisation}}</td>\n\t\t\t\t\t<td v-else=\"\">{{contact.last_name}}</td>\n\n\t\t\t\t\t<td><span v-if=\"contact.billing.postalcode\">{{contact.billing.postalcode}} {{contact.billing.city}}</span></td>\n\t\t\t    </tr>\n\t\t\t  </tbody>\n\t\t\t</table>\n\t\t</div>\n\n\t</div>\n\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -41184,7 +41178,7 @@ var __vueify_style__ = require("vueify-insert-css").insert(".checkmark-wrapper {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _jquery = require('jquery');
@@ -41194,71 +41188,93 @@ var _jquery2 = _interopRequireDefault(_jquery);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-  name: 'ModalComponent',
+    name: 'ModalComponent',
 
-  props: {
-    show: {
-      type: Boolean,
-      required: true,
-      twoWay: true
+    data: function data() {
+        return {
+            tabOrga: true,
+            tabPrivate: false,
+            loading: false,
+            spinner: false,
+            check: false,
+            contactType: {},
+            contact: {
+                organisation: "",
+                contact_type_id: ""
+            }
+        };
     },
-    md: true
-  },
-
-  data: function data() {
-    return {
-      tabOrga: true,
-      tabPrivate: false,
-      loading: false,
-      spinner: false,
-      check: false
-    };
-  },
-
-
-  methods: {
-    close: function close() {
-      this.show = false;
+    ready: function ready() {
+        this.getContactTypes();
     },
-    orga: function orga() {
-      this.tabOrga = true;
-      this.tabPrivate = false;
+
+
+    props: {
+        show: {
+            type: Boolean,
+            required: true,
+            twoWay: true
+        },
+        md: true
     },
-    private: function _private() {
-      this.tabOrga = false;
-      this.tabPrivate = true;
-    },
-    saveContact: function saveContact() {
 
-      this.spinner = true;
-      this.loading = true;
-      this.ccheck = false;
+    methods: {
+        close: function close() {
+            this.show = false;
+        },
+        orga: function orga() {
+            this.tabOrga = true;
+            this.tabPrivate = false;
+        },
+        private: function _private() {
+            this.tabOrga = false;
+            this.tabPrivate = true;
+        },
+        saveContact: function saveContact() {
 
-      var is = this;
-      // Post request
-      this.$http.post('/saveContact').then(function (response) {
+            this.spinner = true;
+            this.loading = true;
+            this.check = false;
 
-        setTimeout(function () {
-          is.spinner = false;
-          is.check = true;
+            var is = this;
+            // Post request
+            this.$http.post('/api/saveContact', this.contact).then(function (response) {
 
-          setTimeout(function () {
-            is.loading = false;
-            is.show = false;
-            is.$resetValidation();
-          }, 2000);
-        }, 1000);
-      }, function (response) {
+                this.contacts.push(this.contact);
 
-        setTimeout(function () {
-          is.loading = false;
-        }, 1000);
-      });
+                console.log(response.data);
+
+                setTimeout(function () {
+                    is.spinner = false;
+                    is.check = true;
+
+                    setTimeout(function () {
+                        is.loading = false;
+                        is.show = false;
+                        is.$resetValidation();
+                    }, 2000);
+                }, 1000);
+            }, function (response) {
+
+                console.log(response.data);
+
+                setTimeout(function () {
+                    is.loading = false;
+                }, 1000);
+            });
+        },
+        getContactTypes: function getContactTypes() {
+            // GET request
+            this.$http({ url: '/api/getContactTypes', method: 'GET' }).then(function (response) {
+                this.$set('contactType', response.data);
+            }, function (response) {
+                console.log(response.data);
+            });
+        }
     }
-  }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n  <div class=\"modal-mask\" v-show=\"show\" transition=\"modal\">\n    <div class=\"modal-wrapper\">\n      <div class=\"modal-container\" :class=\"{ 'modal-md': md }\">\n\n      \t<div class=\"dimmer\" :class=\"{ 'active': loading }\">\n      \t\t<div class=\"loading\" v-if=\"spinner\"></div>\n          <div class=\"checkmark-wrapper\" v-if=\"check\">\n            <svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 98.5 98.5\" enable-background=\"new 0 0 98.5 98.5\" xml:space=\"preserve\">\n            <path class=\"checkmark\" fill=\"none\" stroke-width=\"8\" stroke-miterlimit=\"10\" d=\"M81.7,17.8C73.5,9.3,62,4,49.2,4\n            C24.3,4,4,24.3,4,49.2s20.3,45.2,45.2,45.2s45.2-20.3,45.2-45.2c0-8.6-2.4-16.6-6.5-23.4l0,0L45.6,68.2L24.7,47.3\"></path>\n            </svg>\n          </div>\n      \t</div>\n\n        <div class=\"modal-header\">\n          <slot name=\"header\">\n            default header\n          </slot>\n        </div>\n\n        <div class=\"modal-tabs\">\n        \t<nav>\n\t        \t<ul>\n    \t\t\t\t<li :class=\"{ 'active': tabOrga }\"><a @click=\"orga\">{{ $t(\"contact.modal.organisation\") }}</a></li>\n    \t\t\t\t<li :class=\"{ 'active': tabPrivate }\"><a @click=\"private\">{{ $t(\"contact.modal.private_person\") }}</a></li>\n\t        \t</ul>\n        \t</nav>\n        </div>\n        \n         <validator name=\"validation1\">\n\n         <!--\n        <div class=\"modal-error\" v-if=\" ! $validation1.valid\">\n        \t<p v-if=\"$validation1.organame.required\"><i class=\"fa fa-exclamation\" aria-hidden=\"true\"></i>\n        \tDer Name der Organisation fehlt.</p>\n        </div>\n        -->\n\n        <form v-on:submit.prevent=\"saveContact\" novalidate=\"\">\n\n        <div class=\"modal-body\" v-show=\"tabOrga\">\n          <slot name=\"body\">\n           \n            \t<div class=\"row\">\n\n              \t\t<div class=\"half-column\">\n              \t\t\t<div class=\"form-group\" :class=\"{ 'error': $validation1.organame.required}\">\n              \t\t\t\t<label>{{ $t(\"contact.modal.name_of_the_organisation\") }}</label>\n              \t\t\t\t<input type=\"text\" name=\"organame\" id=\"organame\" v-validate:organame=\"['required']\">\n          \t\t\t\t  </div>\n              \t\t\t<div class=\"form-group\">\n              \t\t\t\t<label>{{ $t(\"contact.modal.additional_name\") }}</label>\n              \t\t\t\t<input type=\"text\">\n          \t\t\t\t</div>\n            \t\t</div>\n\n                <div class=\"half-column\">\n                    <div class=\"form-group\">\n                      <label>{{ $t(\"contact.modal.client_number\") }}</label>\n                      <input type=\"text\" name=\"client_number\" id=\"client_number\">\n                    </div>\n                    <div class=\"form-group\">\n                      <label>{{ $t(\"contact.type\") }}</label>\n                        <select>\n                          <option>Client</option>\n                        </select>\n                    </div>\n                  </div>\n\n            \t</div>\n          \n          </slot>\n        </div>\n\n        <div class=\"modal-body\" v-show=\"tabPrivate\">\n          <slot name=\"body\">\n            Private\n          </slot>\n        </div>\n\n        <div class=\"modal-footer\">\n          <slot name=\"footer\">\n\t\t\t<a class=\"btn btn-border left\" @click=\"close\">\n\t\t\t\t{{ $t(\"contact.modal.cancel\") }}\n\t\t\t</a>\n            <button class=\"btn btn-border green right\" type=\"submit\" :disabled=\" ! $validation1.valid\">\n            \t<span v-show=\"! $validation1.valid\">{{ $t(\"contact.modal.fix_errors\") }}</span>\n            \t<span v-show=\"$validation1.valid\">{{ $t(\"contact.modal.save\") }}</span>\n            </button>\n          </slot>\n        </div>\n\n        </form>\n        </validator>\n\n      </div>\n    </div>\n  </div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n  <div class=\"modal-mask\" v-show=\"show\" transition=\"modal\">\n    <div class=\"modal-wrapper\">\n      <div class=\"modal-container\" :class=\"{ 'modal-md': md }\">\n\n      \t<div class=\"dimmer\" :class=\"{ 'active': loading }\">\n      \t\t<div class=\"loading\" v-if=\"spinner\"></div>\n          <div class=\"checkmark-wrapper\" v-if=\"check\">\n            <svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 98.5 98.5\" enable-background=\"new 0 0 98.5 98.5\" xml:space=\"preserve\">\n            <path class=\"checkmark\" fill=\"none\" stroke-width=\"8\" stroke-miterlimit=\"10\" d=\"M81.7,17.8C73.5,9.3,62,4,49.2,4\n            C24.3,4,4,24.3,4,49.2s20.3,45.2,45.2,45.2s45.2-20.3,45.2-45.2c0-8.6-2.4-16.6-6.5-23.4l0,0L45.6,68.2L24.7,47.3\"></path>\n            </svg>\n          </div>\n      \t</div>\n\n        <div class=\"modal-header\">\n          <slot name=\"header\">\n            default header\n          </slot>\n        </div>\n\n        <div class=\"modal-tabs\">\n        \t<nav>\n\t        \t<ul>\n    \t\t\t\t<li :class=\"{ 'active': tabOrga }\"><a @click=\"orga\">{{ $t(\"contact.modal.organisation\") }}</a></li>\n    \t\t\t\t<li :class=\"{ 'active': tabPrivate }\"><a @click=\"private\">{{ $t(\"contact.modal.private_person\") }}</a></li>\n\t        \t</ul>\n        \t</nav>\n        </div>\n        \n         <validator name=\"validation1\">\n\n         <!--\n        <div class=\"modal-error\" v-if=\" ! $validation1.valid\">\n        \t<p v-if=\"$validation1.organame.required\"><i class=\"fa fa-exclamation\" aria-hidden=\"true\"></i>\n        \tDer Name der Organisation fehlt.</p>\n        </div>\n        -->\n\n        <form v-on:submit.prevent=\"saveContact\" novalidate=\"\">\n\n        <div class=\"modal-body\" v-show=\"tabOrga\">\n          <slot name=\"body\">\n           \n            \t<div class=\"row\">\n\n              \t\t<div class=\"half-column\">\n              \t\t\t<div class=\"form-group\" :class=\"{ 'error': $validation1.organisation.required}\">\n              \t\t\t\t<label>{{ $t(\"contact.modal.name_of_the_organisation\") }}</label>\n              \t\t\t\t<input type=\"text\" name=\"organisation\" id=\"organisation\" v-validate:organisation=\"['required']\" v-model=\"contact.organisation\">\n          \t\t\t\t  </div>\n              \t\t\t<div class=\"form-group\">\n              \t\t\t\t<label>{{ $t(\"contact.modal.additional_name\") }}</label>\n              \t\t\t\t<input type=\"text\">\n          \t\t\t\t</div>\n            \t\t</div>\n\n                <div class=\"half-column\">\n                    <div class=\"form-group\">\n                      <label>{{ $t(\"contact.modal.client_number\") }}</label>\n                      <input type=\"text\" name=\"client_number\" id=\"client_number\">\n                    </div>\n                    <div class=\"form-group\">\n                      <label>{{ $t(\"contact.type\") }}</label>\n                        <select name=\"contact_type_id\" v-model=\"contact.contact_type_id\">\n                          <option v-for=\"type in contactType\" value=\"{{type.id}}\">{{type.name}}</option>\n                        </select>\n                    </div>\n                  </div>\n\n            \t</div>\n          \n          </slot>\n        </div>\n\n        <div class=\"modal-body\" v-show=\"tabPrivate\">\n          <slot name=\"body\">\n            Private\n          </slot>\n        </div>\n\n        <div class=\"modal-footer\">\n          <slot name=\"footer\">\n\t\t\t<a class=\"btn btn-border left\" @click=\"close\">\n\t\t\t\t{{ $t(\"contact.modal.cancel\") }}\n\t\t\t</a>\n            <button class=\"btn btn-border green right\" type=\"submit\" :disabled=\" ! $validation1.valid\">\n            \t<span v-show=\"! $validation1.valid\">{{ $t(\"contact.modal.fix_errors\") }}</span>\n            \t<span v-show=\"$validation1.valid\">{{ $t(\"contact.modal.save\") }}</span>\n            </button>\n          </slot>\n        </div>\n\n        </form>\n        </validator>\n\n      </div>\n    </div>\n  </div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)

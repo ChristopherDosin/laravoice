@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Contact;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -15,8 +16,9 @@ class ContactController extends Controller
         return $user->with('usertype', 'billingaddress')->get();
     }
 
-    public function saveContact(Request $request, User $user)
+    public function saveContact(Request $request, Contact $contact)
     {
-        dd($request->all());
+        $contact->create($request->all());
+        return "Kontakt erfolgreich erstellt.";
     }
 }

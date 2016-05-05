@@ -70,7 +70,8 @@
 			      <th scope="row">{{contact.id}}</th>
 					<td v-if="contact.organisation">{{contact.organisation}}</td>
 					<td v-else>{{contact.last_name}}</td>
-					<td>{{contact.billing.postalcode}} {{contact.billing.city}}</td>
+
+					<td><span v-if="contact.billing.postalcode">{{contact.billing.postalcode}} {{contact.billing.city}}</span></td>
 			    </tr>
 			  </tbody>
 			</table>
@@ -150,12 +151,6 @@ export default {
 
 	ready: function() {
 		this.getContacts()
-	},
-
-	computed: {
-		type: function() {
-			if(this.contact.type.id == 1);
-		}
 	},
 
 	methods: {

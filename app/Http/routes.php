@@ -28,6 +28,14 @@ Route::group(['middleware' => ['web']], function () {
             return App\Contact::with('billing', 'type')->get();
         });
 
+        Route::get('getContactTypes', function() {
+            return App\ContactType::all();
+        });
+
+        //Route::post('saveContact', function() {
+          //  return \Illuminate\Support\Facades\Request::all();
+        //});
+
         Route::post('saveContact', [
             'as' => 'saveContact', 'uses' => 'ContactController@saveContact'
         ]);
