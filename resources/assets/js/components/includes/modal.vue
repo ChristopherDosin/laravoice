@@ -46,9 +46,9 @@
             	<div class="row">
 
               		<div class="half-column">
-              			<div class="form-group" :class="{ 'error': $validation1.organisation.required}">
+              			<div class="form-group" :class="{ 'error': $validation1.organisation.minlength}">
               				<label>{{ $t("contact.modal.name_of_the_organisation") }}</label>
-              				<input type="text" name="organisation" id="organisation" v-validate:organisation="['required']" v-model="contact.organisation">
+              				<input type="text" name="organisation" id="organisation" v-validate:organisation="{minlength: 3, required: true}" v-model="contact.organisation">
           				  </div>
               			<div class="form-group">
               				<label>{{ $t("contact.modal.additional_name") }}</label>
