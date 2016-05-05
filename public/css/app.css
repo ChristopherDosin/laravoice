@@ -421,6 +421,14 @@ h2 {
   margin-bottom: 0;
   padding-bottom: 0;
 }
+.dashhead h1 small {
+  font-size: 14px;
+  display: block;
+  font-weight: 400;
+  line-height: 1;
+  color: #999;
+  margin-top: 5px;
+}
 .dashhead nav {
   clear: both;
   overflow: hidden;
@@ -645,6 +653,41 @@ a {
 }
 .main-content {
   padding: 30px;
+}
+.badge {
+  display: inline-block;
+  min-width: 10px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-color: #777;
+  border-radius: 10px;
+}
+.label-default {
+  background-color: #777;
+}
+.label-info {
+  background-color: #5bc0de;
+}
+.label-warning {
+  background-color: #f0ad4e;
+}
+.label {
+  display: inline;
+  padding: 0.2em 0.6em 0.3em;
+  font-size: 80%;
+  font-weight: 600;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25em;
 }
 
 /*# sourceMappingURL=app.css.map */
