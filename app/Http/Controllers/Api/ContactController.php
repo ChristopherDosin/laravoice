@@ -21,4 +21,9 @@ class ContactController extends Controller
         $contact->create($request->all());
         return response('Contact was successfully created', 201);
     }
+    
+    public function getContactDetails(Contact $contact, $id)
+    {
+        return $contact->findOrFail($id)->with('billing')->get();
+    }
 }
