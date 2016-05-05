@@ -42149,7 +42149,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./components/includes/sidebar.vue":83,"./vuex/store":90,"vue":73,"vue-hot-reload-api":45,"vueify-insert-css":74}],78:[function(require,module,exports){
+},{"./components/includes/sidebar.vue":83,"./vuex/store":89,"vue":73,"vue-hot-reload-api":45,"vueify-insert-css":74}],78:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("table {\n  font-size: 13px;\n  cursor: pointer !important;\n}\ntable tr:hover {\n  background: rgba(195,195,195,0.18);\n}\ntable thead tr:hover {\n  background: none;\n}\ntable thead th {\n  padding-left: 0;\n}\n.contact-column th,\n.contact-column td {\n  padding: 18px 0 5px 0;\n}\n.contact-type {\n  overflow: hidden;\n  padding-bottom: 15px;\n  padding-bottom: 10px;\n}\n.contact-type .fa {\n  font-size: 20px;\n}\n.contact-type span {\n  color: #fff;\n  position: relative;\n  top: 5px;\n  left: -7px;\n  padding-left: 3px;\n  padding-right: 3px;\n  font-size: 10px;\n}\n")
 'use strict';
 
@@ -42161,8 +42161,6 @@ var _modal = require('../includes/modal.vue');
 
 var _modal2 = _interopRequireDefault(_modal);
 
-var _getters = require('../../vuex/getters');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
@@ -42170,13 +42168,6 @@ exports.default = {
 	name: 'ContactsIndex',
 
 	components: { Modal: _modal2.default },
-
-	vuex: {
-		getters: {
-			// note that you're passing the function itself, and not the value 'getCount()'
-			counterValue: _getters.getCount
-		}
-	},
 
 	route: {
 		data: function data(transition) {
@@ -42243,7 +42234,7 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n    <div class=\"vue-loading\" v-if=\"$loadingRouteData\">\n        <div class=\"loader\">Loading ...</div>\n    </div>\n\n    <div v-if=\"!$loadingRouteData\">\n\n\t\t<div class=\"dashhead bg-light b-b\">\n\t\t\t<section class=\"row b-b b-b-light pb25 mb20\">\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<h1>{{ $t(\"contact.contacts\") }}</h1>\n\t\t\t\t\t<h3>Count is {{ counterValue }}</h3>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<a class=\"btn btn-border green right\" @click=\"showModal = true\">{{ $t(\"contact.create_contact\") }}</a>\n\n\t\t\t\t\t  <!-- use the modal component, pass in the prop -->\n\t\t\t\t\t  <modal :show.sync=\"showModal\" :md=\"true\">\n\t\t\t\t\t    <!--\n\t\t\t\t\t      you can use custom content here to overwrite\n\t\t\t\t\t      default content\n\t\t\t\t\t    -->\n\t\t\t\t\t    <h3 slot=\"header\">{{ $t(\"contact.create_contact\") }}</h3>\n\t\t\t\t\t  </modal>\n\n\t\t\t\t</div>\n\t\t\t</section>\n\n\t\t\t<nav class=\"\">\n\t\t\t\t<ul>\n\t\t\t\t\t<li :class=\"{'active': tabAnalytics}\">\n\t\t\t\t\t\t<a @click=\"analytics\">{{ $t(\"contact.all\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.suppliers\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.clients\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.partner\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.interested_persons\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</nav>\n\t\t</div>\n\n\t\t<div class=\"box m35 no-padding\">\n\t\t\t<table class=\"table table-striped\">\n\t\t\t  <thead>\n\t\t\t    <tr>\n\t\t\t\t\t<th>{{ $t(\"contact.type\") }}</th>\n\t\t\t      <th>{{ $t(\"contact.client_number\") }}</th>\n\t\t\t      <th>{{ $t(\"contact.name\") }}</th>\n\t\t\t\t\t<th>{{ $t(\"contact.city\") }}</th>\n\t\t\t    </tr>\n\t\t\t  </thead>\n\t\t\t  <tbody>\n\t\t\t    <tr v-for=\"contact in contacts\" class=\"contact-column\">\n\t\t\t\t\t<th>\n\t\t\t\t\t\t<div class=\"contact-type\">\n\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t<i class=\"fa {{ getIcon(contact.type.id) }}\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" :style=\"{ 'background-color': contact.type.color }\">{{contact.type.shortcut}}</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</th>\n\t\t\t      <th scope=\"row\">{{contact.id}}</th>\n\t\t\t\t\t<td v-if=\"contact.organisation\">{{contact.organisation}}</td>\n\t\t\t\t\t<td v-else=\"\">{{contact.last_name}}</td>\n\n\t\t\t\t\t<td><span v-if=\"contact.billing.postalcode\">{{contact.billing.postalcode}} {{contact.billing.city}}</span></td>\n\t\t\t    </tr>\n\t\t\t  </tbody>\n\t\t\t</table>\n\t\t</div>\n\n\t</div>\n\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n    <div class=\"vue-loading\" v-if=\"$loadingRouteData\">\n        <div class=\"loader\">Loading ...</div>\n    </div>\n\n    <div v-if=\"!$loadingRouteData\">\n\n\t\t<div class=\"dashhead bg-light b-b\">\n\t\t\t<section class=\"row b-b b-b-light pb25 mb20\">\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<h1>{{ $t(\"contact.contacts\") }}</h1>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"half-column\">\n\t\t\t\t\t<a class=\"btn btn-border green right\" @click=\"showModal = true\">{{ $t(\"contact.create_contact\") }}</a>\n\n\t\t\t\t\t  <!-- use the modal component, pass in the prop -->\n\t\t\t\t\t  <modal :show.sync=\"showModal\" :md=\"true\">\n\t\t\t\t\t    <!--\n\t\t\t\t\t      you can use custom content here to overwrite\n\t\t\t\t\t      default content\n\t\t\t\t\t    -->\n\t\t\t\t\t    <h3 slot=\"header\">{{ $t(\"contact.create_contact\") }}</h3>\n\t\t\t\t\t  </modal>\n\n\t\t\t\t</div>\n\t\t\t</section>\n\n\t\t\t<nav class=\"\">\n\t\t\t\t<ul>\n\t\t\t\t\t<li :class=\"{'active': tabAnalytics}\">\n\t\t\t\t\t\t<a @click=\"analytics\">{{ $t(\"contact.all\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.suppliers\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.clients\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.partner\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li :class=\"{'active': tabSales}\">\n\t\t\t\t\t\t<a @click=\"sales\">{{ $t(\"contact.interested_persons\") }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</nav>\n\t\t</div>\n\n\t\t<div class=\"box m35 no-padding\">\n\t\t\t<table class=\"table table-striped\">\n\t\t\t  <thead>\n\t\t\t    <tr>\n\t\t\t\t\t<th>{{ $t(\"contact.type\") }}</th>\n\t\t\t      <th>{{ $t(\"contact.client_number\") }}</th>\n\t\t\t      <th>{{ $t(\"contact.name\") }}</th>\n\t\t\t\t\t<th>{{ $t(\"contact.city\") }}</th>\n\t\t\t    </tr>\n\t\t\t  </thead>\n\t\t\t  <tbody>\n\t\t\t    <tr v-for=\"contact in contacts\" class=\"contact-column\">\n\t\t\t\t\t<th>\n\t\t\t\t\t\t<div class=\"contact-type\">\n\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t<i class=\"fa {{ getIcon(contact.type.id) }}\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t<span class=\"contact-type-label\" :style=\"{ 'background-color': contact.type.color }\">{{contact.type.shortcut}}</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</th>\n\t\t\t      <th scope=\"row\">{{contact.id}}</th>\n\t\t\t\t\t<td v-if=\"contact.organisation\">{{contact.organisation}}</td>\n\t\t\t\t\t<td v-else=\"\">{{contact.last_name}}</td>\n\n\t\t\t\t\t<td><span v-if=\"contact.billing.postalcode\">{{contact.billing.postalcode}} {{contact.billing.city}}</span></td>\n\t\t\t    </tr>\n\t\t\t  </tbody>\n\t\t\t</table>\n\t\t</div>\n\n\t</div>\n\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -42259,7 +42250,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../vuex/getters":89,"../includes/modal.vue":82,"vue":73,"vue-hot-reload-api":45,"vueify-insert-css":74}],79:[function(require,module,exports){
+},{"../includes/modal.vue":82,"vue":73,"vue-hot-reload-api":45,"vueify-insert-css":74}],79:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42762,21 +42753,6 @@ module.exports = {
 };
 
 },{"./components/contacts/index.vue":78,"./components/dashboard/analytics.vue":79,"./components/dashboard/index.vue":80,"./components/system/company.vue":85,"./components/system/settings.vue":86,"./components/system/users.vue":87}],89:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.getCount = getCount;
-// This getter is a function which just returns the count
-// With ES6 you can also write it as:
-// export const getCount = state => state.count
-
-function getCount(state) {
-    return state.count;
-}
-
-},{}],90:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
