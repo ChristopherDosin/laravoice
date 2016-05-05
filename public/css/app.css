@@ -583,6 +583,12 @@ body {
   font-weight: 400;
   background: #eff3f6;
 }
+input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
 .bg-light {
   color: #354052;
   background: #fff;
