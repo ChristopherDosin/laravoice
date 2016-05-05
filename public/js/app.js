@@ -42192,9 +42192,11 @@ exports.default = {
 
 	events: {
 		'addContactToList': function addContactToList(msg) {
-			// `this` in event callbacks are automatically bound
-			// to the instance that registered it
-			this.contacts.push(msg);
+			// Listen for the Event if a new contact was created
+			// and make a new API Call to get the new user
+			this.$http({ url: '/api/getContacts', method: 'GET' }).then(function (response) {
+				this.$set('contacts', response.data);
+			});
 		}
 	},
 
@@ -42397,7 +42399,8 @@ exports.default = {
             contactType: {},
             contact: {
                 organisation: "",
-                contact_type_id: "1"
+                contact_type_id: "1",
+                id: ""
             }
         };
     },
