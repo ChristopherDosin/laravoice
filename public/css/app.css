@@ -454,7 +454,7 @@ h2 {
 }
 .loader {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   margin: 0;
   text-align: center;
