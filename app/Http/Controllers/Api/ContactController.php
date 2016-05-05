@@ -19,6 +19,6 @@ class ContactController extends Controller
     public function saveContact(Request $request, Contact $contact)
     {
         $contact->create($request->all());
-        return "Kontakt erfolgreich erstellt.";
+        return response('Contact was successfully created', 201);
     }
 }
