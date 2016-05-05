@@ -41240,7 +41240,7 @@ exports.default = {
             // Post request
             this.$http.post('/api/saveContact', this.contact).then(function (response) {
 
-                this.contacts.push(this.contact);
+                this.$root.contacts.push(this.contact);
 
                 console.log(response.data);
 
