@@ -303,7 +303,6 @@ export default {
   padding:22px 36px;
   background:white;
   input {
-    width 200px
     border-radius 2px
   }
 }
