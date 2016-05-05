@@ -18,7 +18,7 @@ module.exports = {
             component: require('./components/dashboard/analytics.vue')
           },
           '/crm': {
-            component: require('./components/contacts/index.vue')
+            component: require('./components/contacts/index.vue'),
           },
           '/system/settings': {
             component: require('./components/system/settings.vue')

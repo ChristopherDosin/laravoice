@@ -14,7 +14,8 @@
     "vue-router": "^0.7.13",
     "vue-strap": "^1.0.7",
     "vue-validator": "^2.1.0",
-    "vueify": "^8.3.9"
+    "vueify": "^8.3.9",
+    "vuex": "^0.6.3"
   },
   "dependencies": {
     "bootstrap-sass": "^3.0.0",
