@@ -63,8 +63,11 @@
                     </div>
                     <div class="form-group">
                       <label>{{ $t("contact.type") }}</label>
-                        <select name="contact_type_id" v-model="contact.contact_type_id">
-                          <option v-for="type in contactType" value="{{type.id}}">{{type.name}}</option>
+                        <select class="form-control" name="contact_type_id" v-model="contact.contact_type_id">
+                          <option v-for="type in contactType"
+                                  value="{{type.id}}"
+                                  selected="selected"
+                          >{{type.name}}</option>
                         </select>
                     </div>
                   </div>
