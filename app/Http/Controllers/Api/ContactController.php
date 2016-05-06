@@ -18,6 +18,6 @@ class ContactController extends Controller
     
     public function getContactDetails(Contact $contact, $id)
     {
-        return $contact->findOrFail($id)->with('billing')->get();
+        return $contact->with('billing')->findOrFail($id);
     }
 }
