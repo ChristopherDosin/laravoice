@@ -13,7 +13,7 @@ class ContactController extends Controller
     public function saveContact(Request $request, Contact $contact)
     {
         $create = $contact->create($request->all());
-        return response()->json($create->id,  201);
+        return response()->json(['id' => $create->id],  201);
     }
     
     public function getContactDetails(Contact $contact, $id)

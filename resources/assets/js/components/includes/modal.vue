@@ -174,7 +174,7 @@ export default {
                 is.loading = false
                 is.show = false
                 is.$resetValidation()
-                is.$router.go('/crm/detail/id/' + response.data);
+                is.$router.go('/crm/detail/id/' + response.data.id);
             }, 2000);
 
           }, 1000);
