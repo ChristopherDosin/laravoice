@@ -42150,6 +42150,7 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"./components/includes/sidebar.vue":84,"./vuex/store":90,"vue":73,"vue-hot-reload-api":45,"vueify-insert-css":74}],78:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert(".icon-back {\n  font-size: 48px;\n  color: #1d2531;\n}\n.icon-back:hover {\n  color: #279bf3;\n}\n")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42189,19 +42190,23 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"vue-loading\" v-if=\"$loadingRouteData\">\n    <div class=\"loader\">Loading ...</div>\n</div>\n\n<div v-if=\"!$loadingRouteData\">\n\n    <div class=\"dashhead bg-light b-b\">\n        <section class=\"row pb5 mb20\">\n            <h1>{{ contact.organisation }}\n                <small v-if=\"contact.organisation.length\">Organisation</small>\n                <small v-else=\"\">Private Person</small>\n            </h1>\n        </section>\n    </div>\n\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"vue-loading\" v-if=\"$loadingRouteData\">\n    <div class=\"loader\">Loading ...</div>\n</div>\n\n<div v-if=\"!$loadingRouteData\">\n\n    <div class=\"dashhead bg-light b-b\">\n        <section class=\"row pb5 mb20\">\n            <div class=\"half-column\">\n                <h1>{{ contact.organisation }}\n                    <small v-if=\"contact.organisation.length\">Organisation</small>\n                    <small v-else=\"\">Private Person</small>\n                </h1>\n            </div>\n            <div class=\"half-column\">\n                <a href=\"#\" onclick=\"window.history.back();\" class=\"right icon-back\">\n                    <i class=\"fa fa-angle-left\" aria-hidden=\"true\"></i>\n                </a>\n            </div>\n        </section>\n    </div>\n\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   var id = "/Users/christopherdosin/Desktop/code/laravoice/resources/assets/js/components/contacts/detail.vue"
+  module.hot.dispose(function () {
+    require("vueify-insert-css").cache[".icon-back {\n  font-size: 48px;\n  color: #1d2531;\n}\n.icon-back:hover {\n  color: #279bf3;\n}\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
   if (!module.hot.data) {
     hotAPI.createRecord(id, module.exports)
   } else {
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":73,"vue-hot-reload-api":45}],79:[function(require,module,exports){
+},{"vue":73,"vue-hot-reload-api":45,"vueify-insert-css":74}],79:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("table {\n  font-size: 13px;\n  cursor: pointer !important;\n}\ntable tr:hover {\n  background: rgba(195,195,195,0.18);\n}\ntable thead tr:hover {\n  background: none;\n}\ntable thead th {\n  padding-left: 0;\n}\n.contact-column th,\n.contact-column td {\n  padding: 18px 0 5px 0;\n}\n.contact-type {\n  overflow: hidden;\n  padding-bottom: 15px;\n  padding-bottom: 10px;\n}\n.contact-type .fa {\n  font-size: 20px;\n}\n.contact-type span {\n  color: #fff;\n  position: relative;\n  top: 5px;\n  left: -7px;\n  padding-left: 3px;\n  padding-right: 3px;\n  font-size: 10px;\n}\n")
 'use strict';
 
