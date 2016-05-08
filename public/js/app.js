@@ -42503,6 +42503,7 @@ exports.default = {
                         is.loading = false;
                         is.show = false;
                         is.$resetValidation();
+                        is.$router.go('/crm/detail/id/' + response.data);
                     }, 2000);
                 }, 1000);
             }, function (response) {

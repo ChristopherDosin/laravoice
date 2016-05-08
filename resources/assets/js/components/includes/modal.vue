@@ -167,16 +167,18 @@ export default {
               console.log(response.data);
 
           setTimeout(function(){
-            is.spinner = false
-            is.check = true
+                is.spinner = false
+                is.check = true
 
             setTimeout(function(){
-              is.loading = false
-              is.show = false
-              is.$resetValidation()
+                is.loading = false
+                is.show = false
+                is.$resetValidation()
+                is.$router.go('/crm/detail/id/' + response.data);
             }, 2000);
 
           }, 1000);
+
 
           }, function (response) {
 
