@@ -163,8 +163,7 @@ export default {
           // Post request
           this.$http.post('/api/saveContact', this.contact).then(function (response) {
 
-              this.$dispatch('addContactToList', this.contact);
-              console.log(response.data);
+          this.$dispatch('addContactToList', this.contact);
 
           setTimeout(function(){
                 is.spinner = false
