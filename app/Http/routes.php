@@ -17,7 +17,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('/detail/id/{id}', [
                 'as' => 'getContactDetails', 'uses' => 'ContactController@getContactDetails'
             ]);
-            
+
         });
 
         Route::get('getContacts', function() {

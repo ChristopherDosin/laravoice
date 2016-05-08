@@ -23,8 +23,8 @@ class Contact extends Model
     ];
 
     /**
- * A Billing Address belongs to a contact
- */
+    * A Billing Address belongs to a contact
+    */
     public function billing()
     {
         return $this->belongsTo('App\ContactBillingAddress', 'contacts_billing_address_id');
