@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -25,19 +25,19 @@ class User extends Authenticatable
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * Get the Type of the User which he belongs to.
      */
     public function usertype()
     {
-        return $this->belongsTo('App\UserType', 'user_type_id');
+        return $this->belongsTo('App\Models\UserType', 'user_type_id');
     }
 
     /**
-     * Get the user that owns the billingaddress.
+     * Get the User that owns the billingaddress.
      */
     public function billingaddress()
     {
-        return $this->hasOne('App\UserBillingaddress', 'user_id');
+        return $this->hasOne('App\Models\UserBillingaddress', 'user_id');
     }
 
     /**
@@ -45,6 +45,6 @@ class User extends Authenticatable
      */
     public function invoices()
     {
-        return $this->hasMany('App\Invoice', 'user_id');
+        return $this->hasMany('App\Models\Invoice', 'user_id');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
 
@@ -33,6 +33,8 @@ class ClientController extends Controller
     }
 
     /**
+     * Get all Contacts
+     *
      * @return string
      */
     public function index(User $user)
@@ -47,6 +49,8 @@ class ClientController extends Controller
     }
 
     /**
+     * Show the Contact related to the given $id
+     *
      * @param $id
      * @param User $user
      * @return User
@@ -58,6 +62,9 @@ class ClientController extends Controller
     }
 
     /**
+     * Store the Client with the given Inputs and
+     * fire a Flash Message
+     *
      * @param Request $request
      * @return static
      */

@@ -42101,10 +42101,6 @@ Object.keys(locales).forEach(function (lang) {
   _vue2.default.locale(lang, locales[lang]);
 });
 
-router.beforeEach(function () {
-  window.scrollTo(0, 0);
-});
-
 // Bootstrap the app
 //Vue.component('nav-component', require('./components/site-header/index.vue'))
 var App = _vue2.default.extend(require('./app.vue'));

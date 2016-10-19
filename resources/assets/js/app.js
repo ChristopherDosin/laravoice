@@ -75,10 +75,6 @@ Object.keys(locales).forEach(function (lang) {
   Vue.locale(lang, locales[lang])
 })
 
-router.beforeEach(function () {
-    window.scrollTo(0, 0)
-})
-
 // Bootstrap the app
 //Vue.component('nav-component', require('./components/site-header/index.vue'))
 const App = Vue.extend(require('./app.vue'))

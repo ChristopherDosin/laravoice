@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,6 +27,6 @@ class UserType extends Model
      */
     public function user()
     {
-        $this->hasMany('App\User');
+        $this->hasMany('App\Models\User');
     }
 }

@@ -5,6 +5,7 @@
     "chart.js": "^2.0.2",
     "gulp": "^3.8.8",
     "jquery": "^2.2.3",
+    "jquery-tooltipster": "^3.3.0",
     "laravel-elixir": "^4.2.1",
     "laravel-elixir-stylus": "^1.0.1",
     "laravel-elixir-vueify": "^1.0.3",

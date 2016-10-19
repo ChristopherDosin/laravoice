@@ -34,6 +34,7 @@
 }
 </style>
 <script>
+
     export default {
         name: 'Detail',
 

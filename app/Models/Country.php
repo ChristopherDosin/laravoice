@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,7 +18,7 @@ class Country extends Model
      */
     public function invoice()
     {
-        return $this->belongsTo('App\Invoice');
+        return $this->belongsTo('App\Models\Invoice');
     }
 
     /**
@@ -26,6 +26,6 @@ class Country extends Model
      */
     public function billingaddress()
     {
-        return $this->hasOne('App\UserBillingaddress', 'user_id');
+        return $this->hasOne('App\Models\UserBillingaddress', 'user_id');
     }
 }

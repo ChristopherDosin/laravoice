@@ -21,11 +21,11 @@ Route::group(['middleware' => ['web']], function () {
         });
 
         Route::get('getContacts', function() {
-            return App\Contact::with('billing', 'type')->get();
+            return App\Models\Contact::with('billing', 'type')->get();
         });
 
         Route::get('getContactTypes', function() {
-            return App\ContactType::all();
+            return App\Models\ContactType::all();
         });
 
         Route::post('saveContact', [
