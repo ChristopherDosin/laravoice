@@ -11,24 +11,7 @@
             	{{ $t("sidebar.contacts") }}</a>
             </li>
 
-            <!--
-            <li class="seperator"></li>
-
-            <li class="title">{{ $t("sidebar.system") }} <i class="fa fa-cog" aria-hidden="true"></i></li>
-
-            <li v-link-active>
-                <a v-link="{ path: '/system/settings', activeClass: 'active'}"><i class="fa fa-tasks" aria-hidden="true"></i>
-                {{ $t("sidebar.settings") }}</a>
-            </li>
-            <li v-link-active>
-                <a v-link="{ path: '/system/usermanagement', activeClass: 'active'}"><i class="fa fa-user-secret" aria-hidden="true"></i>
-                {{ $t("sidebar.usermanagement") }}</a>
-            </li>
-            <li v-link-active>
-                <a v-link="{ path: '/system/company', activeClass: 'active'}"><i class="fa fa-building-o" aria-hidden="true"></i>
-                {{ $t("sidebar.company") }}</a>
-            </li>
-            -->
+        
         </ul>
     </div>
 </template>
