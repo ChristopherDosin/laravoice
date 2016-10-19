@@ -10,8 +10,6 @@
             	<a v-link="{ path: '/crm', activeClass: 'active'}"><i class="fa fa-users" aria-hidden="true"></i>
             	{{ $t("sidebar.contacts") }}</a>
             </li>
-
-        
         </ul>
     </div>
 </template>
