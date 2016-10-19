@@ -11,6 +11,7 @@
             	{{ $t("sidebar.contacts") }}</a>
             </li>
 
+            <!--
             <li class="seperator"></li>
 
             <li class="title">{{ $t("sidebar.system") }} <i class="fa fa-cog" aria-hidden="true"></i></li>
@@ -27,6 +28,7 @@
                 <a v-link="{ path: '/system/company', activeClass: 'active'}"><i class="fa fa-building-o" aria-hidden="true"></i>
                 {{ $t("sidebar.company") }}</a>
             </li>
+            -->
         </ul>
     </div>
 </template>
